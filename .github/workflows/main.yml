@@ -1,0 +1,12 @@
+name: CI/CD
+
+on: [push]
+
+jobs:
+
+  tests:
+    uses: ./.github/workflows/tests.yaml
+
+  #build_and_push_to_docker_hub:
+  #server_environment:
+  #deploy:
