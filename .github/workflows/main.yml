@@ -14,6 +14,10 @@ jobs:
       back_or_front: backend
     secrets: inherit
 
+  server_environment:
+    needs: build_and_push_to_docker_hub
+    uses: ./.github/workflows/server_environ.yml
+    secrets: inherit
 
-  #server_environment:
+
   #deploy:

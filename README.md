@@ -1,5 +1,6 @@
 # Funtech_backend
 
+[![CI/CD](https://github.com/Team88888/Funtech_backend/actions/workflows/main.yml/badge.svg)](https://github.com/Team88888/Funtech_backend/actions/workflows/main.yml)
 
 ## Оглавление
 - [Технологии](#технологии)
