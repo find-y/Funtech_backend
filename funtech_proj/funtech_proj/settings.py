@@ -31,6 +31,9 @@ ALLOWED_HOSTS = []  # type: ignore [var-annotated]
 # Application definition
 
 INSTALLED_APPS = [
+    "events.apps.EventsConfig",
+    "users.apps.UsersConfig",
+    "api.apps.ApiConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
