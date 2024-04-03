@@ -18,10 +18,10 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           script: |
             sudo mkdir -p ${{ secrets.PROJECT_NAME }} -m 777
-            # sudo chmod 777 ${{ secrets.PROJECT_NAME }}
             sudo cat > ${{ secrets.PROJECT_NAME }}/.env << _EOF_
               SECRET_KEY=${{ secrets.SECRET_KEY }}
               DEBUG=${{ secrets.DEBUG }}
+              HOST=${{ secrets.HOST }}
 
               DJANGO_SUPERUSER_USERNAME=${{ secrets.DJANGO_SUPERUSER_USERNAME }}
               DJANGO_SUPERUSER_EMAIL=${{ secrets.DJANGO_SUPERUSER_EMAIL }}
@@ -33,7 +33,6 @@ jobs:
               POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
               DB_HOST=${{ secrets.DB_HOST }}
               DB_PORT=${{ secrets.DB_PORT }}
-
 
               PROJECT_NAME=${{ secrets.PROJECT_NAME }}
               DOCKERHUB_USERNAME=${{ secrets.DOCKERHUB_USERNAME }}
