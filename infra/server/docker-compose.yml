@@ -38,6 +38,7 @@ services:
       - URL=${DOMAIN}
       - VALIDATION=http
       - CERTPROVIDER=zerossl
+      - EMAIL=${EMAIL}
     ports:
       - 443:443
       - 80:80
