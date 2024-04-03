@@ -38,9 +38,6 @@ class Program_part(TemplateName):
         verbose_name_plural = 'Части программы'
 
 
-# class Participants
-
-
 class Tag(TemplateName):
     class Meta:
         verbose_name = 'Навык'
