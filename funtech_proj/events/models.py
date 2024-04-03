@@ -51,6 +51,7 @@ class Event(models.Model):
         User,
         on_delete=models.CASCADE,
         verbose_name='Организатор',
+        related_name="organized_events",
     )
     created = models.DateTimeField(
         auto_now_add=True,
@@ -65,7 +66,8 @@ class Event(models.Model):
     date = models.DateTimeField(
         verbose_name='Дата проведения')
     head_image = models.ImageField(
-        verbose_name='Основное изображение')
+        verbose_name='Основное изображение',
+        upload_to='events/images/head_images/')
     name = models.CharField(
         max_length=256,
         verbose_name='Название')
@@ -88,6 +90,7 @@ class Event(models.Model):
     galery_images = models.ManyToManyField(
         Galery_image,
         through='Galery_imageEvent',
+        upload_to='events/images/galery_images/'
         # verbose_name='Галерея изображений',
     )
     speakers = models.ManyToManyField(
@@ -102,7 +105,7 @@ class Event(models.Model):
     )
     participants = models.ManyToManyField(
         User,
-        through='UsesEvent',
+        through='ParticipantEvent',
         # verbose_name='Участники',
     )
     tags = models.ManyToManyField(
@@ -178,11 +181,13 @@ class ParticipantEvent(models.Model):
     participant = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
+        related_name="participated_events",
         # verbose_name='Изображение для галереи'
     )
     event = models.ForeignKey(
         Event,
         on_delete=models.PROTECT,
+        related_name="participated_events",
         # verbose_name='Ивент'
     )
 
