@@ -2,6 +2,10 @@
 
 [![CI/CD](https://github.com/Team88888/Funtech_backend/actions/workflows/main.yml/badge.svg)](https://github.com/Team88888/Funtech_backend/actions/workflows/main.yml)
 
+Проект развернут на сервере:
+  http://funtech-team8.duckdns.org
+  http://funtech-team8.duckdns.org/admin
+
 ## Оглавление
 - [Технологии](#технологии)
 - [Описание работы](#описание-работы)
