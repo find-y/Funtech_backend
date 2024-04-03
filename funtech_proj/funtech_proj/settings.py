@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
+import logging
 import os
 from pathlib import Path
 
@@ -26,9 +27,13 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DEBUG")
 
-HOST = os.getenv("HOST", default="localhost")
+HOST = os.getenv("HOST")  # , default="localhost")
 ALLOWED_HOSTS = ["backend", HOST]  # type: ignore [var-annotated]
 CSRF_TRUSTED_ORIGINS = ["http://127.0.0.1", f"http://{HOST}"]
+
+
+logging.warning(ALLOWED_HOSTS)
+logging.warning(CSRF_TRUSTED_ORIGINS)
 
 # Application definition
 
