@@ -27,12 +27,19 @@ services:
   #  image: "${DOCKERHUB_USERNAME}/${PROJECT_NAME}_frontend"
 
   nginx:
-    image: nginx:1.21.3-alpine
-    restart: always
+    image: lscr.io/linuxserver/swag
+    restart: unless-stopped
     depends_on:
       # - frontend
       - backend
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - URL=${DOMAIN}
+      - VALIDATION=http
+      - CERTPROVIDER=zerossl
     ports:
+      - 443:443
       - 80:80
     volumes:
       - ./nginx.conf:/etc/nginx/conf.d/default.conf
