@@ -27,7 +27,7 @@ services:
   #  image: "${DOCKERHUB_USERNAME}/${PROJECT_NAME}_frontend"
 
   nginx:
-    image: lscr.io/linuxserver/swag
+    image: linuxserver/swag:2.4.0
     restart: unless-stopped
     depends_on:
       # - frontend
@@ -35,10 +35,11 @@ services:
     cap_add:
       - NET_ADMIN
     environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/London
       - URL=${DOMAIN}
       - VALIDATION=http
-      - CERTPROVIDER=zerossl
-      - EMAIL=${EMAIL}
     ports:
       - 443:443
       - 80:80
