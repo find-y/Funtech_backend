@@ -21,6 +21,8 @@ class Town(TemplateName):
 
 
 class Galery_image(TemplateName):
+    upload_to = 'events/images/galery_images/'
+
     class Meta:
         verbose_name = 'Изображений для галереи'
         verbose_name_plural = 'Галерея изображений'
@@ -90,7 +92,7 @@ class Event(models.Model):
     galery_images = models.ManyToManyField(
         Galery_image,
         through='Galery_imageEvent',
-        upload_to='events/images/galery_images/'
+        # upload_to='events/images/galery_images/'
         # verbose_name='Галерея изображений',
     )
     speakers = models.ManyToManyField(
