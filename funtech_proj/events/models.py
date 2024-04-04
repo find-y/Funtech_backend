@@ -1,118 +1,112 @@
 from django.db import models
-
 from users.models import User
 
 
 class TemplateName(models.Model):
-    name = models.CharField('Название', max_length=256, unique=True)
+    name = models.CharField("Название", max_length=256, unique=True)
 
     def __str__(self):
         return self.name
 
     class Meta:
         abstract = True
-        ordering = ('-name',)
+        ordering = ("-name",)
 
 
 class Town(TemplateName):
     class Meta:
-        verbose_name = 'Город'
-        verbose_name_plural = 'Города'
+        verbose_name = "Город"
+        verbose_name_plural = "Города"
 
 
 class Galery_image(TemplateName):
-    upload_to = 'events/images/galery_images/'
+    upload_to = "events/images/galery_images/"
 
     class Meta:
-        verbose_name = 'Изображений для галереи'
-        verbose_name_plural = 'Галерея изображений'
+        verbose_name = "Изображений для галереи"
+        verbose_name_plural = "Галерея изображений"
 
 
 class Speaker(TemplateName):
     class Meta:
-        verbose_name = 'Спикер'
-        verbose_name_plural = 'Спикеры'
+        verbose_name = "Спикер"
+        verbose_name_plural = "Спикеры"
 
 
 class Program_part(TemplateName):
     class Meta:
-        verbose_name = 'Часть программы'
-        verbose_name_plural = 'Части программы'
+        verbose_name = "Часть программы"
+        verbose_name_plural = "Части программы"
 
 
 class Tag(TemplateName):
     class Meta:
-        verbose_name = 'Навык'
-        verbose_name_plural = 'Ключевые навыки'
+        verbose_name = "Навык"
+        verbose_name_plural = "Ключевые навыки"
 
 
 class Event(models.Model):
-# поля сгруппированы по типу
+    # поля сгруппированы по типу
     # данные проставляются автоматически
     org = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        verbose_name='Организатор',
+        verbose_name="Организатор",
         related_name="organized_events",
     )
     created = models.DateTimeField(
         auto_now_add=True,
-        verbose_name='Дата создания',
+        verbose_name="Дата создания",
     )
 
     # орг ставит галочку или нет
-    registration_open = models.BooleanField(
-        verbose_name='Регистрация открыта')
+    registration_open = models.BooleanField(verbose_name="Регистрация открыта")
 
     # орг вводит свое значение
-    date = models.DateTimeField(
-        verbose_name='Дата проведения')
+    date = models.DateTimeField(verbose_name="Дата проведения")
     head_image = models.ImageField(
-        verbose_name='Основное изображение',
-        upload_to='events/images/head_images/')
-    name = models.CharField(
-        max_length=256,
-        verbose_name='Название')
-    description = models.TextField(
-        verbose_name='Описание')
-    address = models.TextField(
-        verbose_name='Адрес')
-    video = models.CharField( #трансляция и запись будут по одной ссылке?
-        max_length=256,
-        verbose_name='Видео')
+        verbose_name="Основное изображение",
+        upload_to="events/images/head_images/",
+    )
+    name = models.CharField(max_length=256, verbose_name="Название")
+    description = models.TextField(verbose_name="Описание")
+    address = models.TextField(verbose_name="Адрес")
+    video = models.CharField(  # трансляция и запись будут по одной ссылке?
+        max_length=256, verbose_name="Видео"
+    )
 
     # участник выбирает одно из списка. или добавляет свое
     town = models.ForeignKey(
         Town,
         on_delete=models.PROTECT,  # добавить: при вводе букв - подсказки
-        verbose_name='Город',
+        verbose_name="Город",
     )
 
     # участник выбирает несколько из списка. или добавляет свое
     galery_images = models.ManyToManyField(
         Galery_image,
-        through='Galery_imageEvent',
+        through="Galery_imageEvent",
         # upload_to='events/images/galery_images/'
         # verbose_name='Галерея изображений',
     )
     speakers = models.ManyToManyField(
         Speaker,
-        through='SpeakerEvent',
+        through="SpeakerEvent",
         # verbose_name='Спикеры',
     )
     program_parts = models.ManyToManyField(
         Program_part,
-        through='Program_partEvent',
+        through="Program_partEvent",
         # verbose_name='Части программы',
     )
     participants = models.ManyToManyField(
         User,
-        through='ParticipantEvent',
+        through="ParticipantEvent",
         # verbose_name='Участники',
     )
     tags = models.ManyToManyField(
         Tag,
-        through='TagEvent',
+        through="TagEvent",
         # verbose_name='Теги',
     )
 
@@ -120,9 +114,9 @@ class Event(models.Model):
         return self.name
 
     class Meta:
-        verbose_name = 'Ивент'
-        verbose_name_plural = 'Ивенты'
-        ordering = ('date',)
+        verbose_name = "Ивент"
+        verbose_name_plural = "Ивенты"
+        ordering = ("date",)
 
 
 class Galery_imageEvent(models.Model):
@@ -140,7 +134,7 @@ class Galery_imageEvent(models.Model):
     class Meta:
         # verbose_name = 'Заявка-Навык'
         # verbose_name_plural = 'Заявки-Навыки'
-        ordering = ('event',)
+        ordering = ("event",)
 
 
 class SpeakerEvent(models.Model):
@@ -158,7 +152,7 @@ class SpeakerEvent(models.Model):
     class Meta:
         # verbose_name = 'Заявка-Навык'
         # verbose_name_plural = 'Заявки-Навыки'
-        ordering = ('event',)
+        ordering = ("event",)
 
 
 class Program_partEvent(models.Model):
@@ -176,7 +170,7 @@ class Program_partEvent(models.Model):
     class Meta:
         # verbose_name = 'Заявка-Навык'
         # verbose_name_plural = 'Заявки-Навыки'
-        ordering = ('event',)
+        ordering = ("event",)
 
 
 class ParticipantEvent(models.Model):
@@ -196,7 +190,7 @@ class ParticipantEvent(models.Model):
     class Meta:
         # verbose_name = 'Заявка-Навык'
         # verbose_name_plural = 'Заявки-Навыки'
-        ordering = ('event',)
+        ordering = ("event",)
 
 
 class TagEvent(models.Model):
@@ -214,4 +208,4 @@ class TagEvent(models.Model):
     class Meta:
         # verbose_name = 'Заявка-Навык'
         # verbose_name_plural = 'Заявки-Навыки'
-        ordering = ('event',)
+        ordering = ("event",)
