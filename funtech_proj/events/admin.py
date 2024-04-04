@@ -1,17 +1,17 @@
 from django.contrib import admin
 
 from .models import (
-    Town,
-    Galery_image,
-    Speaker,
-    Program_part,
-    Tag,
     Event,
+    Galery_image,
     Galery_imageEvent,
-    SpeakerEvent,
-    Program_partEvent,
     ParticipantEvent,
-    TagEvent
+    Program_part,
+    Program_partEvent,
+    Speaker,
+    SpeakerEvent,
+    Tag,
+    TagEvent,
+    Town,
 )
 
 
@@ -63,7 +63,9 @@ class TagEventInline(admin.TabularInline):
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
     inlines = [
-        Galery_imageEventInline, SpeakerEventInline,
-        Program_partEventInline, ParticipantEventInline,
-        TagEventInline
+        Galery_imageEventInline,
+        SpeakerEventInline,
+        Program_partEventInline,
+        ParticipantEventInline,
+        TagEventInline,
     ]

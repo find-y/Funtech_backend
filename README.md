@@ -1,5 +1,12 @@
 # Funtech_backend
 
+[![CI/CD](https://github.com/Team88888/Funtech_backend/actions/workflows/main.yml/badge.svg)](https://github.com/Team88888/Funtech_backend/actions/workflows/main.yml)
+
+Проект развернут на сервере:<br>
+https://funtech-team8.duckdns.org<br>
+https://funtech-team8.duckdns.org/admin<br>
+<a href="#t1">Учетные данные</a> для входа в админ-зону
+
 
 ## Оглавление
 - [Технологии](#технологии)
@@ -47,6 +54,12 @@ docker compose -f infra/local/docker-compose.yml --env-file .env up -d --build
 
   Администрирование приложения может быть осуществлено через админ панель по адресу http://localhost/admin
 
+<h4 id="t1">Учетные данные для входа в админ-зону:</h4>
+<ul>
+  <li>login: adm
+  <li>password: admpw
+</ul><br>
+
 2. Остановить docker и удалить контейнеры можно командой из корневой директории проекта:
 
 ```bash
@@ -75,4 +88,4 @@ cd .. && rm -fr Funtech_backend
 ## Авторы:
 [Aleksei Proskuriakov](https://github.com/alexpro2022)
 
-[⬆️В начало](#Funtech_backend)
+[⬆️В начало](#funtech_backend)
