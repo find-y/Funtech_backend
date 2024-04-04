@@ -27,7 +27,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 DEBUG = os.getenv("DEBUG")
 
 DOMAIN = os.getenv("DOMAIN", default="localhost")
-ALLOWED_HOSTS = ["backend", DOMAIN]  # type: ignore [var-annotated]
+ALLOWED_HOSTS = ["backend", DOMAIN]
 CSRF_TRUSTED_ORIGINS = ["http://127.0.0.1", f"http://{DOMAIN}", f"https://{DOMAIN}"]
 
 # Application definition

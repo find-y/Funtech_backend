@@ -1,0 +1,12 @@
+name: Branch_Test
+
+on:
+  push:
+    branches-ignore:
+      - "main"
+      - "develop"
+
+jobs:
+
+  tests:
+    uses: ./.github/workflows/tests.yml
