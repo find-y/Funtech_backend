@@ -37,6 +37,31 @@ nano .env
 
 <br>
 
+## Запуск приложения:
+
+1. Из корневой директории проекта выполните команду:
+```bash
+docker compose -f infra/local/docker-compose.yml --env-file .env up -d --build
+```
+  Проект будет развернут в docker-контейнерах по адресу http://localhost
+
+  Администрирование приложения может быть осуществлено через админ панель по адресу http://localhost/admin
+
+2. Остановить docker и удалить контейнеры можно командой из корневой директории проекта:
+
+```bash
+docker compose -f infra/local/docker-compose.yml --env-file .env down
+```
+
+Если также необходимо удалить том базы данных:
+```bash
+docker compose -f infra/local/docker-compose.yml --env-file .env down -v
+```
+
+[⬆️Оглавление](#оглавление)
+
+<br>
+
 ## Удаление приложения:
 Из корневой директории проекта выполните команду:
 ```bash
