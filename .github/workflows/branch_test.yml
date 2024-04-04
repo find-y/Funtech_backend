@@ -1,4 +1,4 @@
-name: Branch_Test
+name: Test Suite
 
 on:
   push:
