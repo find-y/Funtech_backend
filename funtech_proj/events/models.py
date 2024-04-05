@@ -2,6 +2,16 @@ from django.db import models
 from users.models import User
 
 
+# class MetaModel(type):
+#     def __new__(cls, name, bases, dct):
+#         if 'Meta' not in dct:
+#             dct['Meta'] = type('Meta', (), {})
+#         if 'ordering' not in dct['Meta'].__dict__:
+#             dct['Meta'].ordering = ('name',)  # Установим сортировку по умолчанию
+
+#         return type.__new__(cls, name, bases, dct)
+
+
 class TemplateName(models.Model):
     name = models.CharField("Название", max_length=256, unique=True)
 
@@ -10,13 +20,14 @@ class TemplateName(models.Model):
 
     class Meta:
         abstract = True
-        ordering = ("-name",)
+        ordering = ("name",)
 
 
 class Town(TemplateName):
     class Meta:
         verbose_name = "Город"
         verbose_name_plural = "Города"
+        ordering = ("name",)
 
 
 class Galery_image(TemplateName):
