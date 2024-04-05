@@ -1,6 +1,6 @@
 # Funtech_backend
 
-[![CI/CD](https://github.com/Team88888/Funtech_backend/actions/workflows/main.yml/badge.svg)](https://github.com/Team88888/Funtech_backend/actions/workflows/main.yml)
+[![CI/CD](https://github.com/Team88888/Funtech_backend/actions/workflows/ci_cd.yml/badge.svg)](https://github.com/Team88888/Funtech_backend/actions/workflows/ci_cd.yml)
 
 Проект развернут на сервере:<br>
 https://funtech-team8.duckdns.org<br>
