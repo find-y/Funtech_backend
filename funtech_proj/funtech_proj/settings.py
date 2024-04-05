@@ -29,8 +29,8 @@ DEBUG = os.getenv("DEBUG") # убрать позже
 # DEBUG = os.getenv('DEBUG', default=False) == 'True'
 
 DOMAIN = os.getenv("DOMAIN", default="localhost")
-ALLOWED_HOSTS = ["backend", DOMAIN]
-# ALLOWED_HOSTS = ["backend", DOMAIN, "127.0.0.1"]  # убрать позже
+# ALLOWED_HOSTS = ["backend", DOMAIN]
+ALLOWED_HOSTS = ["backend", DOMAIN, "127.0.0.1"]  # убрать позже
 CSRF_TRUSTED_ORIGINS = ["http://127.0.0.1", f"http://{DOMAIN}", f"https://{DOMAIN}"]
 
 # Application definition
@@ -81,19 +81,7 @@ WSGI_APPLICATION = "funtech_proj.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": os.getenv("DB_ENGINE"),  # , default='django.db.backends.postgresql'
-        "NAME": os.getenv("DB_NAME"),  # , default='postgres'
-        "USER": os.getenv("POSTGRES_USER"),
-        "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
-        "HOST": os.getenv("DB_HOST"),
-        "PORT": os.getenv("DB_PORT"),
-    }
-}
-
-# if 'DB_ENGINE' in os.environ:
-#     DATABASES = {
+# DATABASES = {
 #     "default": {
 #         "ENGINE": os.getenv("DB_ENGINE"),  # , default='django.db.backends.postgresql'
 #         "NAME": os.getenv("DB_NAME"),  # , default='postgres'
@@ -103,13 +91,25 @@ DATABASES = {
 #         "PORT": os.getenv("DB_PORT"),
 #     }
 # }
-# else:
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.sqlite3',
-#             'NAME': str(BASE_DIR / 'db.sqlite3'),
-#         }
-#     }
+
+if 'DB_ENGINE' in os.environ:
+    DATABASES = {
+    "default": {
+        "ENGINE": os.getenv("DB_ENGINE"),  # , default='django.db.backends.postgresql'
+        "NAME": os.getenv("DB_NAME"),  # , default='postgres'
+        "USER": os.getenv("POSTGRES_USER"),
+        "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
+        "HOST": os.getenv("DB_HOST"),
+        "PORT": os.getenv("DB_PORT"),
+    }
+}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': str(BASE_DIR / 'db.sqlite3'),
+        }
+    }
     
 
 # DATABASES = {
