@@ -24,14 +24,14 @@ class TemplateName(models.Model):
 
 
 class Town(TemplateName):
-    class Meta:
-        verbose_name = "Город"
-        verbose_name_plural = "Города"
-        ordering = ("name",)
-    # class Meta(TemplateName.Meta):
+    # class Meta:
     #     verbose_name = "Город"
     #     verbose_name_plural = "Города"
-    #     db_table = 'events_town'
+    #     ordering = ("name",)
+    class Meta(TemplateName.Meta):
+        verbose_name = "Город"
+        verbose_name_plural = "Города"
+        # db_table = 'events_town'
 
 
 class Galery_image(TemplateName):
