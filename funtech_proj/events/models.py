@@ -27,7 +27,7 @@ class Town(TemplateName):
     class Meta:
         verbose_name = "Город"
         verbose_name_plural = "Города"
-        ordering = ("name",)
+        # ordering = ("name",)
 
 
 class Galery_image(TemplateName):
