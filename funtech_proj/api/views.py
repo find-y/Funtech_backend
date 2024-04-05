@@ -3,6 +3,7 @@ from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 
 from events.models import (Event,)
+# from users.models import (Position, Experience, Specialization, Stack)
 
 from .serializers import (EventSerializer,)
 
@@ -12,35 +13,44 @@ class EventViewSet(ModelViewSet):
     serializer_class = EventSerializer
 
 
-# class AllData(APIView):
+# заготовки для энпоинта со списками в анкету
+'''
+class ProfileLists(APIView):
 
     def get(self, request):
-        skills_list = list(Skill.objects.values_list("name", flat=True))
-        education_list = list(Education.objects.values_list("name", flat=True))
-        payments_list = list(Payments.objects.values_list("name", flat=True))
-        towns_list = list(Towns.objects.values_list("name", flat=True))
-        # date = datetime.now().strftime("%Y-%m-%d")
+        position_list = list(Position.objects.values_list("name", flat=True))
+        experience_list = list(Experience.objects.values_list("name", flat=True))
+        specialization_list = list(Specialization.objects.values_list("name", flat=True))
+        stack_list = list(Stack.objects.values_list("name", flat=True))
 
         return Response(
             {
+                "position": position_list,
+                "experience_years": experience_list,
                 "specialization": specialization_list,
-                "towns": towns_list,
-                # salary
-                "experience": experience_list,
-                "education": education_list,
-                "skills": skills_list,
-                "languages": languages_list,
-                "languages_levels": languages_levels_list,
-                "registration": registration_list,
-                "occupation": occupation_list,
-                "timetable": timetable_list,
-                "mission": BOOLEAN_CHOICES,
-                "bonus": BOOLEAN_CHOICES,
-                "expectations": expectations_list,
-                "date": date,
-                "recruiter_count": RECRUITER_COUNT_CHOICES,
-                "candidates_count": CANDIDATES_COUNT_CHOICES,
-                "payments": payments_list,
-                # award
+                "stack": stack_list,
             }
         )
+
+class ProfileLists(APIView):
+
+    def get(self, request):
+        position_list = Position.objects.all()
+        experience_list = Experience.objects.all()
+        specialization_list = Specialization.objects.all()
+        stack_list = Stack.objects.all()
+
+        position_serializer = PositionSerializer(position_list, many=True)
+        experience_serializer = ExperienceSerializer(experience_list, many=True)
+        specialization_serializer = SpecializationSerializer(specialization_list, many=True)
+        stack_serializer = StackSerializer(stack_list, many=True)
+
+        return Response(
+            {
+                "position": position_serializer.data,
+                "experience_years": experience_serializer.data,
+                "specialization": specialization_serializer.data,
+                "stack": stack_serializer.data,
+            }
+        )
+'''
