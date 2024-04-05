@@ -28,6 +28,10 @@ class Town(TemplateName):
         verbose_name = "Город"
         verbose_name_plural = "Города"
         ordering = ("name",)
+    # class Meta(TemplateName.Meta):
+    #     verbose_name = "Город"
+    #     verbose_name_plural = "Города"
+    #     db_table = 'events_town'
 
 
 class Galery_image(TemplateName):
