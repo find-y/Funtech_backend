@@ -123,7 +123,6 @@ class Event(models.Model):
     galery_images = models.ManyToManyField(
         Galery_image,
         through="Galery_imageEvent",
-        # upload_to='events/images/galery_images/'
         # verbose_name='Галерея изображений',
     )
     speakers = models.ManyToManyField(
@@ -131,21 +130,11 @@ class Event(models.Model):
         through="SpeakerEvent",
         # verbose_name='Спикеры',
     )
-    # program_parts = models.ManyToManyField(
-    #     Program_part,
-    #     through="Program_partEvent",
-    #     # verbose_name='Части программы',
-    # )
     participants = models.ManyToManyField(
         User,
         through="ParticipantEvent",
         # verbose_name='Участники',
     )
-    # tags = models.ManyToManyField(
-    #     Tag,
-    #     through="TagEvent",
-    #     # verbose_name='Теги',
-    # )
     specialization = models.ManyToManyField(
         Specialization,
         through="SpecializationEvent",
@@ -305,12 +294,12 @@ class ParticipantEvent(models.Model):
         verbose_name="Соглашаюсь получать приглашения")
     areement_vacancies = models.BooleanField(
         verbose_name="Соглашаюсь получать вакансии")
-    # update_profile = models.BooleanField(verbose_name="Обновить мой профиль")
     # это должно быть на фронте
+    # update_profile = models.BooleanField(verbose_name="Обновить мой профиль")
 
     class Meta:
-        # verbose_name = 'Заявка-Навык'
-        # verbose_name_plural = 'Заявки-Навыки'
+        verbose_name = 'Участник Ивента'
+        verbose_name_plural = 'Участники Ивентов'
         ordering = ("event",)
 
 
