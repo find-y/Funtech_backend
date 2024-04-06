@@ -2,16 +2,6 @@ from django.db import models
 from users.models import User
 
 
-# class MetaModel(type):
-#     def __new__(cls, name, bases, dct):
-#         if 'Meta' not in dct:
-#             dct['Meta'] = type('Meta', (), {})
-#         if 'ordering' not in dct['Meta'].__dict__:
-#             dct['Meta'].ordering = ('name',)  # Установим сортировку по умолчанию
-
-#         return type.__new__(cls, name, bases, dct)
-
-
 class TemplateName(models.Model):
     name = models.CharField("Название", max_length=256, unique=True)
 
@@ -24,40 +14,70 @@ class TemplateName(models.Model):
 
 
 class Town(TemplateName):
-    # class Meta:
-    #     verbose_name = "Город"
-    #     verbose_name_plural = "Города"
-    #     ordering = ("name",)
     class Meta(TemplateName.Meta):
         verbose_name = "Город"
         verbose_name_plural = "Города"
-        # db_table = 'events_town'
 
 
-class Galery_image(TemplateName):
-    upload_to = "events/images/galery_images/"
+class Form(TemplateName):
+    class Meta(TemplateName.Meta):
+        verbose_name = "Формат"
+        verbose_name_plural = "Формат"
+
+
+class Galery_image(models.Model):
+    image = models.ImageField(
+        # verbose_name="Изображение галереи",
+        # verbose_name_plural="Изображения галереи",
+        upload_to="events/images/galery_images/",
+    )
 
     class Meta:
-        verbose_name = "Изображений для галереи"
+        verbose_name = "Изображение для галереи"
         verbose_name_plural = "Галерея изображений"
+        ordering = ("id",)
 
 
 class Speaker(TemplateName):
-    class Meta:
+    class Meta(TemplateName.Meta):
         verbose_name = "Спикер"
         verbose_name_plural = "Спикеры"
 
 
-class Program_part(TemplateName):
-    class Meta:
-        verbose_name = "Часть программы"
-        verbose_name_plural = "Части программы"
+# class Tag(TemplateName): # дальше объдинить с моделью направление-стэк 
+#     class Meta(TemplateName.Meta):
+#         verbose_name = "Навык (тег)"
+#         verbose_name_plural = "Ключевые навыки (теги)"
 
 
-class Tag(TemplateName):
-    class Meta:
-        verbose_name = "Навык"
-        verbose_name_plural = "Ключевые навыки"
+class Theme(TemplateName):
+    class Meta(TemplateName.Meta):
+        verbose_name = "Тема"
+        verbose_name_plural = "Темы"
+
+
+class Specialization(TemplateName):
+    theme = models.ForeignKey(
+        Theme,
+        on_delete=models.CASCADE,
+        verbose_name="Тема",
+    )
+
+    class Meta(TemplateName.Meta):
+        verbose_name = "Направление"
+        verbose_name_plural = "Направления"
+
+
+class Stack(TemplateName):
+    specialization = models.ForeignKey(
+        Specialization,
+        on_delete=models.CASCADE,
+        verbose_name="Направление",
+    )
+
+    class Meta(TemplateName.Meta):
+        verbose_name = "Стэк"
+        verbose_name_plural = "Стэк"
 
 
 class Event(models.Model):
@@ -86,15 +106,23 @@ class Event(models.Model):
     name = models.CharField(max_length=256, verbose_name="Название")
     description = models.TextField(verbose_name="Описание")
     address = models.TextField(verbose_name="Адрес")
-    video = models.CharField(  # трансляция и запись будут по одной ссылке?
-        max_length=256, verbose_name="Видео"
+    video_link = models.CharField(  # трансляция и запись будут по одной ссылке?
+        max_length=256, verbose_name="Видео линк"
     )
+    # program = models.TextField(verbose_name="Программа")
+    # орг вводит список своих значений (прописано в связных моделях)
+    # program_parts
 
     # участник выбирает одно из списка. или добавляет свое
     town = models.ForeignKey(
         Town,
         on_delete=models.PROTECT,  # добавить: при вводе букв - подсказки
         verbose_name="Город",
+    )
+    form = models.ForeignKey(
+        Town,
+        on_delete=models.PROTECT,  # добавить: при вводе букв - подсказки
+        verbose_name="Формат",
     )
 
     # участник выбирает несколько из списка. или добавляет свое
@@ -109,20 +137,30 @@ class Event(models.Model):
         through="SpeakerEvent",
         # verbose_name='Спикеры',
     )
-    program_parts = models.ManyToManyField(
-        Program_part,
-        through="Program_partEvent",
-        # verbose_name='Части программы',
-    )
+    # program_parts = models.ManyToManyField(
+    #     Program_part,
+    #     through="Program_partEvent",
+    #     # verbose_name='Части программы',
+    # )
     participants = models.ManyToManyField(
         User,
         through="ParticipantEvent",
         # verbose_name='Участники',
     )
-    tags = models.ManyToManyField(
-        Tag,
-        through="TagEvent",
-        # verbose_name='Теги',
+    # tags = models.ManyToManyField(
+    #     Tag,
+    #     through="TagEvent",
+    #     # verbose_name='Теги',
+    # )
+    specialization = models.ManyToManyField(
+        Specialization,
+        through="SpecializationEvent",
+        # verbose_name='Участники',
+    )
+    stack = models.ManyToManyField(
+        Stack,
+        through="StackEvent",
+        # verbose_name='Участники',
     )
 
     def __str__(self):
@@ -170,25 +208,44 @@ class SpeakerEvent(models.Model):
         ordering = ("event",)
 
 
-class Program_partEvent(models.Model):
-    program_part = models.ForeignKey(
-        Program_part,
-        on_delete=models.CASCADE,
-        # verbose_name='Изображение для галереи'
-    )
+class Program_part(TemplateName):
     event = models.ForeignKey(
         Event,
-        on_delete=models.PROTECT,
-        # verbose_name='Ивент'
+        on_delete=models.CASCADE,
+        verbose_name="Ивент",
     )
+    time = models.TimeField()
 
     class Meta:
-        # verbose_name = 'Заявка-Навык'
-        # verbose_name_plural = 'Заявки-Навыки'
+        verbose_name = "Часть программы"
+        verbose_name_plural = "Части программы"
         ordering = ("event",)
 
 
+'''
+# class Program_partEvent(models.Model):
+#     program_part = models.ForeignKey(
+#         Program_part,
+#         on_delete=models.CASCADE,
+#         # verbose_name='Изображение для галереи'
+#     )
+#     time = models.TimeField()
+#     event = models.ForeignKey(
+#         Event,
+#         on_delete=models.PROTECT,
+#         # verbose_name='Ивент'
+#     )
+
+#     class Meta:
+#         # verbose_name = 'Заявка-Навык'
+#         # verbose_name_plural = 'Заявки-Навыки'
+#         ordering = ("event",)
+'''
+
+'''
 class ParticipantEvent(models.Model):
+    # унаследовать от кастом юзера
+    # чтобы записывать сюда текущее состояние полей без привязки к профилю
     participant = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
@@ -201,6 +258,61 @@ class ParticipantEvent(models.Model):
         related_name="participated_events",
         # verbose_name='Ивент'
     )
+    participate_online = models.BooleanField(verbose_name="Участвую онлайн")
+    areement_events = models.BooleanField(
+        verbose_name="Соглашаюсь получать приглашения")
+    areement_vacancies = models.BooleanField(
+        verbose_name="Обновить получать вакансии")
+    update_profile = models.BooleanField(verbose_name="Обновить мой профиль")
+
+    class Meta:
+        # verbose_name = 'Заявка-Навык'
+        # verbose_name_plural = 'Заявки-Навыки'
+        ordering = ("event",)
+'''
+
+'''
+class TagEvent(models.Model):
+    tag = models.ForeignKey(
+        Tag,
+        on_delete=models.CASCADE,
+        # verbose_name='Изображение для галереи'
+    )
+    event = models.ForeignKey(
+        Event,
+        on_delete=models.PROTECT,
+        # verbose_name='Ивент'
+    )
+
+    class Meta:
+        # verbose_name = 'Заявка-Навык'
+        # verbose_name_plural = 'Заявки-Навыки'
+        ordering = ("event",)
+'''
+
+
+class ParticipantEvent(User):
+    # унаследовал от кастом юзера
+    # чтобы записывать сюда текущую анкету без привязки к профилю
+    participant = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name="participated_events",
+        # verbose_name='Изображение для галереи'
+    )
+    event = models.ForeignKey(
+        Event,
+        on_delete=models.PROTECT,
+        related_name="participated_events",
+        # verbose_name='Ивент'
+    )
+    participate_online = models.BooleanField(verbose_name="Участвую онлайн")
+    areement_events = models.BooleanField(
+        verbose_name="Соглашаюсь получать приглашения")
+    areement_vacancies = models.BooleanField(
+        verbose_name="Обновить получать вакансии")
+    # update_profile = models.BooleanField(verbose_name="Обновить мой профиль")
+    # это должно быть на фронте
 
     class Meta:
         # verbose_name = 'Заявка-Навык'
@@ -208,9 +320,27 @@ class ParticipantEvent(models.Model):
         ordering = ("event",)
 
 
-class TagEvent(models.Model):
-    tag = models.ForeignKey(
-        Tag,
+class SpecializationEvent(models.Model):
+    specialization = models.ForeignKey(
+        Specialization,
+        on_delete=models.CASCADE,
+        # verbose_name='Изображение для галереи'
+    )
+    event = models.ForeignKey(
+        Event,
+        on_delete=models.PROTECT,
+        # verbose_name='Ивент'
+    )
+
+    class Meta:
+        # verbose_name = 'Заявка-Навык'
+        # verbose_name_plural = 'Заявки-Навыки'
+        ordering = ("event",)
+
+
+class StackEvent(models.Model):
+    stack = models.ForeignKey(
+        Stack,
         on_delete=models.CASCADE,
         # verbose_name='Изображение для галереи'
     )

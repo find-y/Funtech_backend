@@ -92,32 +92,32 @@ WSGI_APPLICATION = "funtech_proj.wsgi.application"
 #     }
 # }
 
-if 'DB_ENGINE' in os.environ:
-    DATABASES = {
-    "default": {
-        "ENGINE": os.getenv("DB_ENGINE"),  # , default='django.db.backends.postgresql'
-        "NAME": os.getenv("DB_NAME"),  # , default='postgres'
-        "USER": os.getenv("POSTGRES_USER"),
-        "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
-        "HOST": os.getenv("DB_HOST"),
-        "PORT": os.getenv("DB_PORT"),
-    }
-}
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': str(BASE_DIR / 'db.sqlite3'),
-        }
-    }
-    
-
-# DATABASES = {
+# if 'DB_ENGINE' in os.environ:
+#     DATABASES = {
+#     "default": {
+#         "ENGINE": os.getenv("DB_ENGINE"),  # , default='django.db.backends.postgresql'
+#         "NAME": os.getenv("DB_NAME"),  # , default='postgres'
+#         "USER": os.getenv("POSTGRES_USER"),
+#         "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
+#         "HOST": os.getenv("DB_HOST"),
+#         "PORT": os.getenv("DB_PORT"),
+#     }
+# }
+# else:
+#     DATABASES = {
 #         'default': {
 #             'ENGINE': 'django.db.backends.sqlite3',
 #             'NAME': str(BASE_DIR / 'db.sqlite3'),
 #         }
 #     }
+    
+
+DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': str(BASE_DIR / 'db.sqlite3'),
+        }
+    }
     
 
 
