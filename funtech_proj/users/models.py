@@ -1,3 +1,8 @@
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
+
+'''
 # внес шаблонного кастомного юзера из заготовок,
 # чтобы можно было тестировать модели ивентов
 
@@ -20,15 +25,19 @@ class User(AbstractUser):
     username = models.CharField(
         verbose_name="Юзернейм",
         unique=True,
+        max_length=25,
     )
     first_name = models.CharField(
         verbose_name="Имя пользователя",
+        max_length=25,
     )
     last_name = models.CharField(
         verbose_name="Фамилия пользователя",
+        max_length=25,
     )
     password = models.CharField(
         verbose_name="Пароль",
+        max_length=25,
     )
 
     def __str__(self):
@@ -38,3 +47,4 @@ class User(AbstractUser):
         ordering = ('-date_joined',)
         verbose_name = 'Пользователь'
         verbose_name_plural = 'Пользователи'
+'''

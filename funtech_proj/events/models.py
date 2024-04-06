@@ -44,12 +44,6 @@ class Speaker(TemplateName):
         verbose_name_plural = "Спикеры"
 
 
-# class Tag(TemplateName): # дальше объдинить с моделью направление-стэк 
-#     class Meta(TemplateName.Meta):
-#         verbose_name = "Навык (тег)"
-#         verbose_name_plural = "Ключевые навыки (теги)"
-
-
 class Theme(TemplateName):
     class Meta(TemplateName.Meta):
         verbose_name = "Тема"
@@ -120,7 +114,7 @@ class Event(models.Model):
         verbose_name="Город",
     )
     form = models.ForeignKey(
-        Town,
+        Form,
         on_delete=models.PROTECT,  # добавить: при вводе букв - подсказки
         verbose_name="Формат",
     )
@@ -291,8 +285,8 @@ class TagEvent(models.Model):
 '''
 
 
-class ParticipantEvent(User):
-    # унаследовал от кастом юзера
+class ParticipantEvent(models.Model):
+    # унаследовать от кастом юзера
     # чтобы записывать сюда текущую анкету без привязки к профилю
     participant = models.ForeignKey(
         User,
@@ -310,7 +304,7 @@ class ParticipantEvent(User):
     areement_events = models.BooleanField(
         verbose_name="Соглашаюсь получать приглашения")
     areement_vacancies = models.BooleanField(
-        verbose_name="Обновить получать вакансии")
+        verbose_name="Соглашаюсь получать вакансии")
     # update_profile = models.BooleanField(verbose_name="Обновить мой профиль")
     # это должно быть на фронте
 
