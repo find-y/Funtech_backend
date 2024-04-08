@@ -59,12 +59,15 @@ class User(AbstractUser):
     experience = models.CharField(
         max_length=20,
         choices=EXPERIENCE_CHOICES,
+        
     )
     consert_form = models.BooleanField(
-        verbose_name="Согласие на предоставление анкеты"
+        verbose_name="Согласие на предоставление анкеты",
+        default=0
     )
     consert_summary = models.BooleanField(
-        verbose_name="Согласие на предоставление резюме"
+        verbose_name="Согласие на предоставление резюме",
+        default=0
     )
 
     def __str__(self):
