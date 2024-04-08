@@ -92,7 +92,8 @@ class Event(models.Model):
     registration_open = models.BooleanField(verbose_name="Регистрация открыта")
 
     # орг вводит свое значение
-    date = models.DateTimeField(verbose_name="Дата проведения")
+    # date = models.DateTimeField(verbose_name="Дата проведения") # заменить при апдейте миграций
+    date = models.DateField(verbose_name="Дата проведения")
     head_image = models.ImageField(
         verbose_name="Основное изображение",
         upload_to="events/images/head_images/",
@@ -100,10 +101,10 @@ class Event(models.Model):
     name = models.CharField(max_length=256, verbose_name="Название")
     description = models.TextField(verbose_name="Описание")
     address = models.TextField(verbose_name="Адрес")
-    video_link = models.CharField(  # трансляция и запись будут по одной ссылке?
-        max_length=256, verbose_name="Видео линк"
-    )
-    # program = models.TextField(verbose_name="Программа")
+    video_link = models.URLField(  # трансляция и запись будут по одной ссылке?
+        max_length=256, verbose_name="Видео линк")
+    # program = models.TextField(verbose_name="Программа") # просто вариант, если фронт не будет успевать
+
     # орг вводит список своих значений (прописано в связных моделях)
     # program_parts
 
@@ -177,11 +178,13 @@ class SpeakerEvent(models.Model):
     speaker = models.ForeignKey(
         Speaker,
         on_delete=models.CASCADE,
+        related_name="speakers_events",
         # verbose_name='Изображение для галереи'
     )
     event = models.ForeignKey(
         Event,
         on_delete=models.PROTECT,
+        related_name="speakers_events",
         # verbose_name='Ивент'
     )
 
@@ -275,8 +278,8 @@ class TagEvent(models.Model):
 
 
 class ParticipantEvent(models.Model):
-    # унаследовать от кастом юзера
-    # чтобы записывать сюда текущую анкету без привязки к профилю
+    # можно унаследовать от кастом юзера
+    # если хотим записывать сюда текущую анкету без привязки к профилю
     participant = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
