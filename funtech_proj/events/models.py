@@ -25,25 +25,6 @@ class Form(TemplateName):
         verbose_name_plural = "Формат"
 
 
-# class Galery_image(models.Model):
-#     image = models.ImageField(
-#         # verbose_name="Изображение галереи",
-#         # verbose_name_plural="Изображения галереи",
-#         upload_to="events/images/galery_images/",
-#     )
-
-#     class Meta:
-#         verbose_name = "Изображение для галереи"
-#         verbose_name_plural = "Галерея изображений"
-#         ordering = ("id",)
-
-
-# class Speaker(TemplateName):
-#     class Meta(TemplateName.Meta):
-#         verbose_name = "Спикер"
-#         verbose_name_plural = "Спикеры"
-
-
 class Theme(TemplateName):
     class Meta(TemplateName.Meta):
         verbose_name = "Тема"
@@ -109,16 +90,6 @@ class Event(models.Model):
     # program_parts
     # galery_images
     # speakers
-    # galery_images = models.ManyToManyField(
-    #     Galery_image,
-    #     through="Galery_imageEvent",
-    #     # verbose_name='Галерея изображений',
-    # )
-    # speakers = models.ManyToManyField(
-    #     Speaker,
-    #     through="SpeakerEvent",
-    #     # verbose_name='Спикеры',
-    # )
 
     # участник выбирает одно из списка. или добавляет свое
     town = models.ForeignKey(
@@ -158,46 +129,6 @@ class Event(models.Model):
         ordering = ("date",)
 
 
-'''
-class Galery_imageEvent(models.Model):
-    galery_image = models.ForeignKey(
-        Galery_image,
-        on_delete=models.CASCADE,
-        # verbose_name='Изображение для галереи'
-    )
-    event = models.ForeignKey(
-        Event,
-        on_delete=models.PROTECT,
-        # verbose_name='Ивент'
-    )
-
-    class Meta:
-        # verbose_name = 'Заявка-Навык'
-        # verbose_name_plural = 'Заявки-Навыки'
-        ordering = ("event",)
-
-
-class SpeakerEvent(models.Model):
-    speaker = models.ForeignKey(
-        Speaker,
-        on_delete=models.CASCADE,
-        related_name="speakers_events",
-        # verbose_name='Изображение для галереи'
-    )
-    event = models.ForeignKey(
-        Event,
-        on_delete=models.PROTECT,
-        related_name="speakers_events",
-        # verbose_name='Ивент'
-    )
-
-    class Meta:
-        # verbose_name = 'Заявка-Навык'
-        # verbose_name_plural = 'Заявки-Навыки'
-        ordering = ("event",)
-'''
-
-
 class Galery_image(models.Model):
 
     event = models.ForeignKey(
@@ -218,7 +149,11 @@ class Galery_image(models.Model):
 
 
 class Speaker(models.Model):
-    name = models.CharField("ФИО", max_length=256)
+    name = models.CharField(
+        "ФИО", 
+        max_length=256,
+        # related_name="speaker_event",
+        )
     event = models.ForeignKey(
         Event,
         on_delete=models.PROTECT,
