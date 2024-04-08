@@ -25,23 +25,23 @@ class Form(TemplateName):
         verbose_name_plural = "Формат"
 
 
-class Galery_image(models.Model):
-    image = models.ImageField(
-        # verbose_name="Изображение галереи",
-        # verbose_name_plural="Изображения галереи",
-        upload_to="events/images/galery_images/",
-    )
+# class Galery_image(models.Model):
+#     image = models.ImageField(
+#         # verbose_name="Изображение галереи",
+#         # verbose_name_plural="Изображения галереи",
+#         upload_to="events/images/galery_images/",
+#     )
 
-    class Meta:
-        verbose_name = "Изображение для галереи"
-        verbose_name_plural = "Галерея изображений"
-        ordering = ("id",)
+#     class Meta:
+#         verbose_name = "Изображение для галереи"
+#         verbose_name_plural = "Галерея изображений"
+#         ordering = ("id",)
 
 
-class Speaker(TemplateName):
-    class Meta(TemplateName.Meta):
-        verbose_name = "Спикер"
-        verbose_name_plural = "Спикеры"
+# class Speaker(TemplateName):
+#     class Meta(TemplateName.Meta):
+#         verbose_name = "Спикер"
+#         verbose_name_plural = "Спикеры"
 
 
 class Theme(TemplateName):
@@ -103,10 +103,22 @@ class Event(models.Model):
     address = models.TextField(verbose_name="Адрес")
     video_link = models.URLField(  # трансляция и запись будут по одной ссылке?
         max_length=256, verbose_name="Видео линк")
-    # program = models.TextField(verbose_name="Программа") # просто вариант, если фронт не будет успевать
+    # program = models.TextField(verbose_name="Программа") # простой вариант, если фронт не будет успевать
 
     # орг вводит список своих значений (прописано в связных моделях)
     # program_parts
+    # galery_images
+    # speakers
+    # galery_images = models.ManyToManyField(
+    #     Galery_image,
+    #     through="Galery_imageEvent",
+    #     # verbose_name='Галерея изображений',
+    # )
+    # speakers = models.ManyToManyField(
+    #     Speaker,
+    #     through="SpeakerEvent",
+    #     # verbose_name='Спикеры',
+    # )
 
     # участник выбирает одно из списка. или добавляет свое
     town = models.ForeignKey(
@@ -121,16 +133,6 @@ class Event(models.Model):
     )
 
     # участник выбирает несколько из списка. или добавляет свое
-    galery_images = models.ManyToManyField(
-        Galery_image,
-        through="Galery_imageEvent",
-        # verbose_name='Галерея изображений',
-    )
-    speakers = models.ManyToManyField(
-        Speaker,
-        through="SpeakerEvent",
-        # verbose_name='Спикеры',
-    )
     participants = models.ManyToManyField(
         User,
         through="ParticipantEvent",
@@ -156,6 +158,7 @@ class Event(models.Model):
         ordering = ("date",)
 
 
+'''
 class Galery_imageEvent(models.Model):
     galery_image = models.ForeignKey(
         Galery_image,
@@ -192,6 +195,47 @@ class SpeakerEvent(models.Model):
         # verbose_name = 'Заявка-Навык'
         # verbose_name_plural = 'Заявки-Навыки'
         ordering = ("event",)
+'''
+
+
+class Galery_image(models.Model):
+
+    event = models.ForeignKey(
+        Event,
+        on_delete=models.PROTECT,
+        # verbose_name='Ивент'
+    )
+    image = models.ImageField(
+        # verbose_name="Изображение галереи",
+        # verbose_name_plural="Изображения галереи",
+        upload_to="events/images/galery_images/",
+    )
+
+    class Meta:
+        verbose_name = "Изображение для галереи"
+        verbose_name_plural = "Галерея изображений"
+        ordering = ("event",)
+
+
+class Speaker(models.Model):
+    name = models.CharField("ФИО", max_length=256)
+    event = models.ForeignKey(
+        Event,
+        on_delete=models.PROTECT,
+        # related_name="speakers_events",
+        # verbose_name='Ивент'
+    )
+    position = models.CharField(max_length=256, verbose_name="Должность")
+    photo = models.ImageField(
+        # verbose_name="Изображение галереи",
+        # verbose_name_plural="Изображения галереи",
+        upload_to="events/images/speakers_photos/",
+    )
+
+    class Meta:
+        # verbose_name = 'Заявка-Навык'
+        # verbose_name_plural = 'Заявки-Навыки'
+        ordering = ("event",)
 
 
 class Program_part(TemplateName):
@@ -205,7 +249,7 @@ class Program_part(TemplateName):
     class Meta:
         verbose_name = "Часть программы"
         verbose_name_plural = "Части программы"
-        ordering = ("event",)
+        ordering = ("name",)
 
 
 class ParticipantEvent(models.Model):
@@ -215,7 +259,7 @@ class ParticipantEvent(models.Model):
         User,
         on_delete=models.CASCADE,
         related_name="participated_events",
-        # verbose_name='Изображение для галереи'
+        verbose_name='Участник ивента'
     )
     event = models.ForeignKey(
         Event,
@@ -241,7 +285,7 @@ class SpecializationEvent(models.Model):
     specialization = models.ForeignKey(
         Specialization,
         on_delete=models.CASCADE,
-        # verbose_name='Изображение для галереи'
+        verbose_name='Специализация'
     )
     event = models.ForeignKey(
         Event,
@@ -259,7 +303,7 @@ class StackEvent(models.Model):
     stack = models.ForeignKey(
         Stack,
         on_delete=models.CASCADE,
-        # verbose_name='Изображение для галереи'
+        verbose_name='Стэк'
     )
     event = models.ForeignKey(
         Event,

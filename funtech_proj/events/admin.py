@@ -3,11 +3,11 @@ from django.contrib import admin
 from .models import (
     Event,
     Galery_image,
-    Galery_imageEvent,
+    # Galery_imageEvent,
     ParticipantEvent,
     Program_part,
     Speaker,
-    SpeakerEvent,
+    # SpeakerEvent,
     Specialization,
     Stack,
     Town,
@@ -58,12 +58,20 @@ class StackAdmin(admin.ModelAdmin):
     pass
 
 
-class Galery_imageEventInline(admin.TabularInline):
-    model = Galery_imageEvent
+# class Galery_imageEventInline(admin.TabularInline):
+#     model = Galery_imageEvent
 
 
-class SpeakerEventInline(admin.TabularInline):
-    model = SpeakerEvent
+# class SpeakerEventInline(admin.TabularInline):
+#     model = SpeakerEvent
+
+
+class Galery_imageInline(admin.TabularInline):
+    model = Galery_image
+
+
+class SpeakerInline(admin.TabularInline):
+    model = Speaker
 
 
 class Program_partInline(admin.TabularInline):
@@ -85,8 +93,8 @@ class StackEventInline(admin.TabularInline):
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
     inlines = [
-        Galery_imageEventInline,
-        SpeakerEventInline,
+        Galery_imageInline,
+        SpeakerInline,
         Program_partInline,
         ParticipantEventInline,
         SpecializationEventInline,
