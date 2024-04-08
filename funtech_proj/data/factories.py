@@ -1,5 +1,7 @@
-import factory
-from events.models import Galery_image, Program_part, Speaker, Tag, Town
+from datetime import datetime as dt
+
+import factory as f
+from events import models as m
 from factory.django import DjangoModelFactory
 from users.models import User
 
@@ -8,43 +10,82 @@ class UserFactory(DjangoModelFactory):
     class Meta:
         model = User
 
-    username = factory.Sequence(lambda n: f"Username_{n}")
-    email = factory.LazyAttribute(lambda _self: f"{_self.username.lower()}@example.com")
-    password = factory.Faker("password")
+    username = f.Sequence(lambda n: f"Username_{n}")
+    email = f.LazyAttribute(lambda _self: f"{_self.username.lower()}@example.com")
+    password = f.Faker("password")
 
 
 class Galery_imageFactory(DjangoModelFactory):
-    name = factory.Sequence(lambda n: f"Изображение №{n}")
-    # upload_to = factory.Sequence(
-    # lambda n: f"events/images/galery_images/изображение_{n}.png")
+    image = f.django.ImageField()
 
     class Meta:
-        model = Galery_image
+        model = m.Galery_image
 
 
 class SpeakerFactory(DjangoModelFactory):
-    name = factory.Sequence(lambda n: f"Спикер №{n}")
+    name = f.Sequence(lambda n: f"Спикер №{n}")
 
     class Meta:
-        model = Speaker
+        model = m.Speaker
 
 
 class Program_partFactory(DjangoModelFactory):
-    name = factory.Sequence(lambda n: f"Часть №{n} программы")
+    name = f.Sequence(lambda n: f"Часть №{n} программы")
 
     class Meta:
-        model = Program_part
+        model = m.Program_part
 
 
 class TagFactory(DjangoModelFactory):
-    name = factory.Sequence(lambda n: f"Ключевой навык №{n}")
+    name = f.Sequence(lambda n: f"Ключевой навык №{n}")
 
     class Meta:
-        model = Tag
+        model = m.Tag
 
 
 class TownFactory(DjangoModelFactory):
-    name = factory.Sequence(lambda n: f"Город №{n}")
+    name = f.Sequence(lambda n: f"Город №{n}")
 
     class Meta:
-        model = Town
+        model = m.Town
+
+
+class EventFactory(DjangoModelFactory):
+    class Meta:
+        model = m.Event
+
+    name = f.Sequence(lambda n: f"Ивент №{n}")
+    description = f.Faker("text")
+    address = f.Faker("address")
+    org = f.SubFactory(UserFactory)
+    town = f.SubFactory(TownFactory)
+    date = f.Faker("date_time_this_year")
+    video = f.Faker("url")
+    head_image = f.SubFactory(Galery_imageFactory)
+    # f.django.ImageField()
+    registration_open = f.LazyAttribute(lambda _self: _self.date >= dt.now())
+
+    @f.post_generation
+    def galery_images(self, create, extracted, **kwargs):
+        if create and extracted:
+            self.galery_images.add(*extracted)
+
+    @f.post_generation
+    def participants(self, create, extracted, **kwargs):
+        if create and extracted:
+            self.participants.add(*extracted)
+
+    @f.post_generation
+    def program_parts(self, create, extracted, **kwargs):
+        if create and extracted:
+            self.program_parts.add(*extracted)
+
+    @f.post_generation
+    def speakers(self, create, extracted, **kwargs):
+        if create and extracted:
+            self.speakers.add(*extracted)
+
+    @f.post_generation
+    def tags(self, create, extracted, **kwargs):
+        if create and extracted:
+            self.tags.add(*extracted)

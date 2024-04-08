@@ -1,3 +1,4 @@
+from django.core import validators as v
 from django.db import models
 from users.models import User
 
@@ -19,14 +20,6 @@ class Town(TemplateName):
         verbose_name_plural = "Города"
 
 
-class Galery_image(TemplateName):
-    upload_to = "events/images/galery_images/"
-
-    class Meta:
-        verbose_name = "Изображений для галереи"
-        verbose_name_plural = "Галерея изображений"
-
-
 class Speaker(TemplateName):
     class Meta:
         verbose_name = "Спикер"
@@ -45,68 +38,76 @@ class Tag(TemplateName):
         verbose_name_plural = "Ключевые навыки"
 
 
+class Galery_image(models.Model):
+    image = models.ImageField(
+        upload_to="events/images/",
+        validators=(v.validate_image_file_extension,),
+    )
+
+    class Meta:
+        verbose_name = "Изображение для галереи"
+        verbose_name_plural = "Галерея изображений"
+
+
 class Event(models.Model):
-    # поля сгруппированы по типу
-    # данные проставляются автоматически
     org = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
         verbose_name="Организатор",
         related_name="organized_events",
     )
+    # участник выбирает одно из списка. или добавляет свое
+    town = models.ForeignKey(
+        Town,
+        on_delete=models.CASCADE,  # добавить: при вводе букв - подсказки
+        verbose_name="Город",
+    )
+    head_image = models.ForeignKey(
+        Galery_image,
+        related_name="head_image_of_events",
+        on_delete=models.SET_NULL,
+        null=True,
+        verbose_name="Основное изображение",
+        # upload_to="events/images/head_images/",
+    )
     created = models.DateTimeField(
         auto_now_add=True,
         verbose_name="Дата создания",
     )
-
+    date = models.DateTimeField(verbose_name="Дата проведения")
     # орг ставит галочку или нет
     registration_open = models.BooleanField(verbose_name="Регистрация открыта")
-
     # орг вводит свое значение
-    date = models.DateTimeField(verbose_name="Дата проведения")
-    head_image = models.ImageField(
-        verbose_name="Основное изображение",
-        upload_to="events/images/head_images/",
-    )
     name = models.CharField(max_length=256, verbose_name="Название")
     description = models.TextField(verbose_name="Описание")
     address = models.TextField(verbose_name="Адрес")
-    video = models.CharField(  # трансляция и запись будут по одной ссылке?
+    video = models.URLField(  # трансляция и запись будут по одной ссылке?
         max_length=256, verbose_name="Видео"
     )
-
-    # участник выбирает одно из списка. или добавляет свое
-    town = models.ForeignKey(
-        Town,
-        on_delete=models.PROTECT,  # добавить: при вводе букв - подсказки
-        verbose_name="Город",
-    )
-
+    # M2M
     # участник выбирает несколько из списка. или добавляет свое
     galery_images = models.ManyToManyField(
         Galery_image,
-        through="Galery_imageEvent",
-        # upload_to='events/images/galery_images/'
-        # verbose_name='Галерея изображений',
+        # through="Galery_imageEvent",
     )
     speakers = models.ManyToManyField(
         Speaker,
-        through="SpeakerEvent",
+        # through="SpeakerEvent",
         # verbose_name='Спикеры',
     )
     program_parts = models.ManyToManyField(
         Program_part,
-        through="Program_partEvent",
+        # through="Program_partEvent",
         # verbose_name='Части программы',
     )
     participants = models.ManyToManyField(
         User,
-        through="ParticipantEvent",
+        # through="ParticipantEvent",
         # verbose_name='Участники',
     )
     tags = models.ManyToManyField(
         Tag,
-        through="TagEvent",
+        # through="TagEvent",
         # verbose_name='Теги',
     )
 
@@ -119,6 +120,7 @@ class Event(models.Model):
         ordering = ("date",)
 
 
+"""
 class Galery_imageEvent(models.Model):
     galery_image = models.ForeignKey(
         Galery_image,
@@ -209,3 +211,4 @@ class TagEvent(models.Model):
         # verbose_name = 'Заявка-Навык'
         # verbose_name_plural = 'Заявки-Навыки'
         ordering = ("event",)
+"""
