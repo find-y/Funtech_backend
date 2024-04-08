@@ -205,7 +205,7 @@ class Program_part(TemplateName):
         ordering = ("event",)
 
 
-'''
+"""
 # class Program_partEvent(models.Model):
 #     program_part = models.ForeignKey(
 #         Program_part,
@@ -223,9 +223,9 @@ class Program_part(TemplateName):
 #         # verbose_name = 'Заявка-Навык'
 #         # verbose_name_plural = 'Заявки-Навыки'
 #         ordering = ("event",)
-'''
+"""
 
-'''
+"""
 class ParticipantEvent(models.Model):
     # унаследовать от кастом юзера
     # чтобы записывать сюда текущее состояние полей без привязки к профилю
@@ -252,9 +252,9 @@ class ParticipantEvent(models.Model):
         # verbose_name = 'Заявка-Навык'
         # verbose_name_plural = 'Заявки-Навыки'
         ordering = ("event",)
-'''
+"""
 
-'''
+"""
 class TagEvent(models.Model):
     tag = models.ForeignKey(
         Tag,
@@ -271,7 +271,7 @@ class TagEvent(models.Model):
         # verbose_name = 'Заявка-Навык'
         # verbose_name_plural = 'Заявки-Навыки'
         ordering = ("event",)
-'''
+"""
 
 
 class ParticipantEvent(models.Model):
@@ -291,15 +291,17 @@ class ParticipantEvent(models.Model):
     )
     participate_online = models.BooleanField(verbose_name="Участвую онлайн")
     areement_events = models.BooleanField(
-        verbose_name="Соглашаюсь получать приглашения")
+        verbose_name="Соглашаюсь получать приглашения"
+    )
     areement_vacancies = models.BooleanField(
-        verbose_name="Соглашаюсь получать вакансии")
+        verbose_name="Соглашаюсь получать вакансии"
+    )
     # это должно быть на фронте
     # update_profile = models.BooleanField(verbose_name="Обновить мой профиль")
 
     class Meta:
-        verbose_name = 'Участник Ивента'
-        verbose_name_plural = 'Участники Ивентов'
+        verbose_name = "Участник Ивента"
+        verbose_name_plural = "Участники Ивентов"
         ordering = ("event",)
 
 

@@ -2,6 +2,7 @@ from django.contrib import admin
 
 from .models import (
     Event,
+    Form,
     Galery_image,
     Galery_imageEvent,
     ParticipantEvent,
@@ -9,12 +10,11 @@ from .models import (
     Speaker,
     SpeakerEvent,
     Specialization,
-    Stack,
-    Town,
-    Form,
-    Theme,
     SpecializationEvent,
+    Stack,
     StackEvent,
+    Theme,
+    Town,
 )
 
 

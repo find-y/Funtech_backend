@@ -26,7 +26,7 @@ SECRET_KEY = "django-insecure-z6yj*jdyo@m-8$btm4ji5gy#c7gbq%sm+(d=6k48xtbpj6t@f4
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = os.getenv("DEBUG") # убрать позже
-DEBUG = True # убрать позже
+DEBUG = True  # убрать позже
 # DEBUG = os.getenv('DEBUG', default=False) == 'True'
 
 DOMAIN = os.getenv("DOMAIN", default="localhost")
@@ -44,11 +44,12 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
-    'rest_framework.authtoken',
+    "rest_framework.authtoken",
+    "djoser",
     "events.apps.EventsConfig",
     "users.apps.UsersConfig",
     "api.apps.ApiConfig",
-    'drf_yasg',
+    "drf_yasg",
 ]
 
 MIDDLEWARE = [
@@ -114,15 +115,14 @@ WSGI_APPLICATION = "funtech_proj.wsgi.application"
 #             'NAME': str(BASE_DIR / 'db.sqlite3'),
 #         }
 #     }
-    
+
 
 DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': str(BASE_DIR / 'db.sqlite3'),
-        }
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": str(BASE_DIR / "db.sqlite3"),
     }
-    
+}
 
 
 # Password validation
@@ -144,13 +144,12 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.AllowAny', 
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.AllowAny",
     ],
-
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',
-    ]
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.TokenAuthentication",
+    ],
 }
 
 # Internationalization
