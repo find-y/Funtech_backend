@@ -14,12 +14,12 @@ class User(AbstractUser):
         "experience",
     )
     EXPERIENCE_CHOICES = [
-        ('', ''),
-        ('BEGINNER', 'От 1 года'),
-        ('INTERMEDIATE', 'От 3 лет'),
-        ('ADVANCED', 'ОТ 5 лет'),
-        ('Other', 'Другое'),
-    ] 
+        ("", ""),
+        ("BEGINNER", "От 1 года"),
+        ("INTERMEDIATE", "От 3 лет"),
+        ("ADVANCED", "ОТ 5 лет"),
+        ("Other", "Другое"),
+    ]
 
     email = models.EmailField(
         verbose_name="Электронная почта",
@@ -59,22 +59,12 @@ class User(AbstractUser):
     experience = models.CharField(
         max_length=20,
         choices=EXPERIENCE_CHOICES,
-        
-    )
-    consert_form = models.BooleanField(
-        verbose_name="Согласие на предоставление анкеты",
-        default=0
-    )
-    consert_summary = models.BooleanField(
-        verbose_name="Согласие на предоставление резюме",
-        default=0
     )
 
     def __str__(self):
-        return f'{self.username}'
+        return f"{self.username}"
 
     class Meta:
-        ordering = ('-date_joined',)
-        verbose_name = 'Пользователь'
-        verbose_name_plural = 'Пользователи'
-
+        ordering = ("-date_joined",)
+        verbose_name = "Пользователь"
+        verbose_name_plural = "Пользователи"

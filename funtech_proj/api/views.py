@@ -1,11 +1,9 @@
-from rest_framework.response import Response
-from rest_framework.views import APIView
+from events.models import Event
 from rest_framework.viewsets import ModelViewSet
 
-from events.models import (Event,)
-# from users.models import (Position, Experience, Specialization, Stack)
+from .serializers import EventSerializer
 
-from .serializers import (EventSerializer,)
+# from users.models import (Position, Experience, Specialization, Stack)
 
 
 class EventViewSet(ModelViewSet):
@@ -14,13 +12,17 @@ class EventViewSet(ModelViewSet):
 
 
 # заготовки для энпоинта со списками в анкету
-'''
+"""
 class ProfileLists(APIView):
 
     def get(self, request):
         position_list = list(Position.objects.values_list("name", flat=True))
-        experience_list = list(Experience.objects.values_list("name", flat=True))
-        specialization_list = list(Specialization.objects.values_list("name", flat=True))
+        experience_list = list(
+            Experience.objects.values_list("name", flat=True)
+        )
+        specialization_list = list(
+            Specialization.objects.values_list("name", flat=True)
+        )
         stack_list = list(Stack.objects.values_list("name", flat=True))
 
         return Response(
@@ -41,8 +43,14 @@ class ProfileLists(APIView):
         stack_list = Stack.objects.all()
 
         position_serializer = PositionSerializer(position_list, many=True)
-        experience_serializer = ExperienceSerializer(experience_list, many=True)
-        specialization_serializer = SpecializationSerializer(specialization_list, many=True)
+        experience_serializer = ExperienceSerializer(
+            experience_list,
+            many=True
+        )
+        specialization_serializer = SpecializationSerializer(
+            specialization_list,
+            many=True
+        )
         stack_serializer = StackSerializer(stack_list, many=True)
 
         return Response(
@@ -53,4 +61,4 @@ class ProfileLists(APIView):
                 "stack": stack_serializer.data,
             }
         )
-'''
+"""

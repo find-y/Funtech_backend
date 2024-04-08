@@ -16,7 +16,7 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-AUTH_USER_MODEL = 'users.User'
+AUTH_USER_MODEL = "users.User"
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -27,7 +27,7 @@ SECRET_KEY = "django-insecure-z6yj*jdyo@m-8$btm4ji5gy#c7gbq%sm+(d=6k48xtbpj6t@f4
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = os.getenv("DEBUG") # убрать позже
-DEBUG = True # убрать позже
+DEBUG = True  # убрать позже
 # DEBUG = os.getenv('DEBUG', default=False) == 'True'
 
 DOMAIN = os.getenv("DOMAIN", default="localhost")
@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     "events.apps.EventsConfig",
     "users.apps.UsersConfig",
     "api.apps.ApiConfig",
-    'drf_yasg',
+    "drf_yasg",
 ]
 
 MIDDLEWARE = [
@@ -114,15 +114,14 @@ WSGI_APPLICATION = "funtech_proj.wsgi.application"
 #             'NAME': str(BASE_DIR / 'db.sqlite3'),
 #         }
 #     }
-    
+
 
 DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': str(BASE_DIR / 'db.sqlite3'),
-        }
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": str(BASE_DIR / "db.sqlite3"),
     }
-    
+}
 
 
 # Password validation
