@@ -11,8 +11,8 @@ from .models import (
     Town,
     Form,
     Theme,
-    SpecializationEvent,
-    StackEvent,
+    # SpecializationEvent,
+    # StackEvent,
 )
 
 
@@ -72,12 +72,12 @@ class ParticipantEventInline(admin.TabularInline):
     model = ParticipantEvent
 
 
-class SpecializationEventInline(admin.TabularInline):
-    model = SpecializationEvent
+# class SpecializationEventInline(admin.TabularInline):
+#     model = SpecializationEvent
 
 
-class StackEventInline(admin.TabularInline):
-    model = StackEvent
+# class StackEventInline(admin.TabularInline):
+#     model = StackEvent
 
 
 @admin.register(Event)
@@ -87,6 +87,6 @@ class EventAdmin(admin.ModelAdmin):
         SpeakerInline,
         Program_partInline,
         ParticipantEventInline,
-        SpecializationEventInline,
-        StackEventInline,
+        # SpecializationEventInline,
+        # StackEventInline,
     ]
