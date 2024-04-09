@@ -15,39 +15,55 @@ class UserFactory(DjangoModelFactory):
     password = f.Faker("password")
 
 
-class Galery_imageFactory(DjangoModelFactory):
-    image = f.django.ImageField()
-
+class TownFactory(DjangoModelFactory):
     class Meta:
-        model = m.Galery_image
+        model = m.Town
+
+    name = f.Sequence(lambda n: f"Город №{n}")
+
+
+class FormFactory(DjangoModelFactory):
+    class Meta:
+        model = m.Form
+
+    name = f.Sequence(lambda n: f"Формат №{n}")
 
 
 class SpeakerFactory(DjangoModelFactory):
-    name = f.Sequence(lambda n: f"Спикер №{n}")
-
     class Meta:
         model = m.Speaker
 
+    name = f.Sequence(lambda n: f"Спикер №{n}")
 
-class Program_partFactory(DjangoModelFactory):
-    name = f.Sequence(lambda n: f"Часть №{n} программы")
 
+class ThemeFactory(DjangoModelFactory):
     class Meta:
-        model = m.Program_part
+        model = m.Theme
+
+    name = f.Sequence(lambda n: f"Тема №{n}")
 
 
-class TagFactory(DjangoModelFactory):
-    name = f.Sequence(lambda n: f"Ключевой навык №{n}")
-
+class SpecializationFactory(DjangoModelFactory):
     class Meta:
-        model = m.Tag
+        model = m.Specialization
+
+    name = f.Sequence(lambda n: f"Направление №{n}")
+    theme = f.SubFactory(ThemeFactory)
 
 
-class TownFactory(DjangoModelFactory):
-    name = f.Sequence(lambda n: f"Город №{n}")
-
+class StackFactory(DjangoModelFactory):
     class Meta:
-        model = m.Town
+        model = m.Stack
+
+    name = f.Sequence(lambda n: f"Стэк №{n}")
+    specialization = f.SubFactory(SpecializationFactory)
+
+
+class Gallery_imageFactory(DjangoModelFactory):
+    class Meta:
+        model = m.Gallery_image
+
+    image = f.django.ImageField()
 
 
 class EventFactory(DjangoModelFactory):
@@ -55,30 +71,22 @@ class EventFactory(DjangoModelFactory):
         model = m.Event
 
     name = f.Sequence(lambda n: f"Ивент №{n}")
-    description = f.Faker("text")
-    address = f.Faker("address")
-    org = f.SubFactory(UserFactory)
-    town = f.SubFactory(TownFactory)
-    date = f.Faker("date_time_this_year")
-    video = f.Faker("url")
-    head_image = f.SubFactory(Galery_imageFactory)
-    # f.django.ImageField()
     registration_open = f.LazyAttribute(lambda _self: _self.date >= dt.now())
 
-    @f.post_generation
-    def galery_images(self, create, extracted, **kwargs):
-        if create and extracted:
-            self.galery_images.add(*extracted)
+    org = f.SubFactory(UserFactory)
+    town = f.SubFactory(TownFactory)
+    head_image = f.SubFactory(Gallery_imageFactory)
+    form = f.SubFactory(FormFactory)
+
+    date = f.Faker("date_time_this_year", after_now=True)
+    video = f.Faker("url")
+    description = f.Faker("text")
+    address = f.Faker("address")
 
     @f.post_generation
-    def participants(self, create, extracted, **kwargs):
+    def gallery_images(self, create, extracted, **kwargs):
         if create and extracted:
-            self.participants.add(*extracted)
-
-    @f.post_generation
-    def program_parts(self, create, extracted, **kwargs):
-        if create and extracted:
-            self.program_parts.add(*extracted)
+            self.gallery_images.add(*extracted)
 
     @f.post_generation
     def speakers(self, create, extracted, **kwargs):
@@ -86,6 +94,31 @@ class EventFactory(DjangoModelFactory):
             self.speakers.add(*extracted)
 
     @f.post_generation
-    def tags(self, create, extracted, **kwargs):
+    def stack(self, create, extracted, **kwargs):
         if create and extracted:
-            self.tags.add(*extracted)
+            self.stack.add(*extracted)
+
+    @f.post_generation
+    def specializations(self, create, extracted, **kwargs):
+        if create and extracted:
+            self.specializations.add(*extracted)
+
+
+class Program_partFactory(DjangoModelFactory):
+    class Meta:
+        model = m.Program_part
+
+    name = f.Sequence(lambda n: f"Часть программы №{n}")
+    event = f.SubFactory(EventFactory)
+    time = f.Faker("time_object")
+
+
+class ParticipantEventFactory(DjangoModelFactory):
+    class Meta:
+        model = m.ParticipantEvent
+
+    participant = f.SubFactory(UserFactory)
+    event = f.SubFactory(EventFactory)
+    participate_online = f.Iterator((True, False))
+    agreement_events = True
+    agreement_vacancies = True

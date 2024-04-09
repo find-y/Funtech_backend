@@ -32,17 +32,10 @@ def get_random(
 
 class Command(BaseCommand):
     def handle(self, *args, **kwargs):
-        get_or_create_batch(f.TownFactory)
-        participants = get_or_create_batch(f.UserFactory)
-        galery_images = get_or_create_batch(f.Galery_imageFactory)
-        program_parts = get_or_create_batch(f.Program_partFactory)
-        speakers = get_or_create_batch(f.SpeakerFactory)
-        tags = get_or_create_batch(f.TagFactory)
         get_or_create_batch(
             f.EventFactory,
-            galery_images=get_random(galery_images),
-            participants=get_random(participants),
-            program_parts=get_random(program_parts),
-            speakers=get_random(speakers),
-            tags=get_random(tags),
+            gallery_images=get_random(get_or_create_batch(f.Gallery_imageFactory)),
+            speakers=get_random(get_or_create_batch(f.SpeakerFactory)),
+            stack=get_random(get_or_create_batch(f.StackFactory)),
+            specializations=get_random(get_or_create_batch(f.SpecializationFactory)),
         )
