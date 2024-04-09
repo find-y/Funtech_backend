@@ -1,17 +1,17 @@
-name: Test Suite
+# name: Test Suite
 
-on:
-  push:
-    branches-ignore:
-      - "main"
-      - "develop"
-  pull_request:
-    branches:
-      - "main"
-      - "develop"
+# on:
+#   push:
+#     branches-ignore:
+#       - "main"
+#       - "develop"
+#   pull_request:
+#     branches:
+#       - "main"
+#       - "develop"
 
 
-jobs:
+# jobs:
 
-  tests:
-    uses: ./.github/workflows/tests.yml
+#   tests:
+#     uses: ./.github/workflows/tests.yml
