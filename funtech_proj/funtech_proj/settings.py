@@ -32,17 +32,6 @@ CSRF_TRUSTED_ORIGINS = ["http://127.0.0.1", f"http://{DOMAIN}", f"https://{DOMAI
 
 # Application definition
 
-# INSTALLED_APPS = [
-#     "events.apps.EventsConfig",
-#     "users.apps.UsersConfig",
-#     "api.apps.ApiConfig",
-#     "django.contrib.admin",
-#     "django.contrib.auth",
-#     "django.contrib.contenttypes",
-#     "django.contrib.sessions",
-#     "django.contrib.messages",
-#     "django.contrib.staticfiles",
-# ]
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -102,16 +91,38 @@ WSGI_APPLICATION = "funtech_proj.wsgi.application"
 #     }
 
 
-DATABASES = {
-    "default": {
-        "ENGINE": os.getenv("DB_ENGINE"),  # , default='django.db.backends.postgresql'
-        "NAME": os.getenv("DB_NAME"),  # , default='postgres'
-        "USER": os.getenv("POSTGRES_USER"),
-        "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
-        "HOST": os.getenv("DB_HOST"),
-        "PORT": os.getenv("DB_PORT"),
+# DATABASES = {
+#     "default": {
+#         "ENGINE": os.getenv("DB_ENGINE"),  # , default='django.db.backends.postgresql'
+#         "NAME": os.getenv("DB_NAME"),  # , default='postgres'
+#         "USER": os.getenv("POSTGRES_USER"),
+#         "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
+#         "HOST": os.getenv("DB_HOST"),
+#         "PORT": os.getenv("DB_PORT"),
+#     }
+# }
+
+
+if "DB_ENGINE" in os.environ:
+    DATABASES = {
+        "default": {
+            "ENGINE": os.getenv(
+                "DB_ENGINE"
+            ),  # , default='django.db.backends.postgresql'
+            "NAME": os.getenv("DB_NAME"),  # , default='postgres'
+            "USER": os.getenv("POSTGRES_USER"),
+            "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
+            "HOST": os.getenv("DB_HOST"),
+            "PORT": os.getenv("DB_PORT"),
+        }
     }
-}
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": str(BASE_DIR / "db.sqlite3"),
+        }
+    }
 
 
 # Password validation
