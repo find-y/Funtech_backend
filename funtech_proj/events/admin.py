@@ -1,16 +1,15 @@
 from django.contrib import admin
 
-from .models import (
+from .models import (  # SpecializationEvent,; StackEvent,
     Event,
-    Galery_image,
-    Galery_imageEvent,
+    Form,
+    Gallery_image,
     ParticipantEvent,
     Program_part,
-    Program_partEvent,
     Speaker,
-    SpeakerEvent,
-    Tag,
-    TagEvent,
+    Specialization,
+    Stack,
+    Theme,
     Town,
 )
 
@@ -20,8 +19,13 @@ class TownAdmin(admin.ModelAdmin):
     pass
 
 
-@admin.register(Galery_image)
-class Galery_imageAdmin(admin.ModelAdmin):
+@admin.register(Form)
+class FormAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(Gallery_image)
+class Gallery_imageAdmin(admin.ModelAdmin):
     pass
 
 
@@ -30,42 +34,57 @@ class SpeakerAdmin(admin.ModelAdmin):
     pass
 
 
+@admin.register(Theme)
+class ThemeAdmin(admin.ModelAdmin):
+    pass
+
+
 @admin.register(Program_part)
 class Program_partAdmin(admin.ModelAdmin):
     pass
 
 
-@admin.register(Tag)
-class TagAdmin(admin.ModelAdmin):
+@admin.register(Specialization)
+class SpecializationAdmin(admin.ModelAdmin):
     pass
 
 
-class Galery_imageEventInline(admin.TabularInline):
-    model = Galery_imageEvent
+@admin.register(Stack)
+class StackAdmin(admin.ModelAdmin):
+    pass
 
 
-class SpeakerEventInline(admin.TabularInline):
-    model = SpeakerEvent
+class Gallery_imageInline(admin.TabularInline):
+    model = Gallery_image
 
 
-class Program_partEventInline(admin.TabularInline):
-    model = Program_partEvent
+class SpeakerInline(admin.TabularInline):
+    model = Speaker
+
+
+class Program_partInline(admin.TabularInline):
+    model = Program_part
 
 
 class ParticipantEventInline(admin.TabularInline):
     model = ParticipantEvent
 
 
-class TagEventInline(admin.TabularInline):
-    model = TagEvent
+# class SpecializationEventInline(admin.TabularInline):
+#     model = SpecializationEvent
+
+
+# class StackEventInline(admin.TabularInline):
+#     model = StackEvent
 
 
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
     inlines = [
-        Galery_imageEventInline,
-        SpeakerEventInline,
-        Program_partEventInline,
+        Gallery_imageInline,
+        SpeakerInline,
+        Program_partInline,
         ParticipantEventInline,
-        TagEventInline,
+        # SpecializationEventInline,
+        # StackEventInline,
     ]
