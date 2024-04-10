@@ -3,7 +3,7 @@
 [![CI/CD](https://github.com/Team88888/Funtech_backend/actions/workflows/ci_cd.yml/badge.svg)](https://github.com/Team88888/Funtech_backend/actions/workflows/ci_cd.yml)
 
 Проект развернут на сервере:<br>
-https://funtech-team8.duckdns.org<br>
+https://funtech-team8.duckdns.org/api/v1/<br>
 https://funtech-team8.duckdns.org/admin<br>
 <a href="#t1">Учетные данные</a> для входа в админ-зону
 
