@@ -89,7 +89,7 @@ class Event(models.Model):
 
     # орг вводит список своих значений (прописано в связных моделях)
     # program_parts
-    # galery_images
+    # gallery_images
     # speakers
 
     # участник выбирает одно из списка. или добавляет свое
@@ -130,7 +130,7 @@ class Event(models.Model):
         ordering = ("date",)
 
 
-class Galery_image(models.Model):
+class Gallery_image(models.Model):
     event = models.ForeignKey(
         Event,
         on_delete=models.PROTECT,
@@ -139,7 +139,7 @@ class Galery_image(models.Model):
     image = models.ImageField(
         # verbose_name="Изображение галереи",
         # verbose_name_plural="Изображения галереи",
-        upload_to="events/images/galery_images/",
+        upload_to="events/images/gallery_images/",
     )
 
     class Meta:

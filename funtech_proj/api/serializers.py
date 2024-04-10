@@ -1,5 +1,5 @@
 # from rest_framework import serializers
-from events.models import Event, Form, Galery_image, Speaker, Town
+from events.models import Event, Form, Gallery_image, Speaker, Town
 from rest_framework.serializers import ModelSerializer
 
 # from .utils import Base64ImageField
@@ -23,9 +23,9 @@ class SpeakerSerializer(ModelSerializer):
         fields = "__all__"
 
 
-class Galery_imageSerializer(ModelSerializer):
+class Gallery_imageSerializer(ModelSerializer):
     class Meta:
-        model = Galery_image
+        model = Gallery_image
         fields = "__all__"
 
 
@@ -34,7 +34,7 @@ class EventSerializer(ModelSerializer):
     form = FormSerializer()
     # speakers = SpeakerSerializer(many=True)
     # speakers = SpeakerSerializer(many=True, source="speakers_events")
-    # galery_images = Galery_imageSerializer()
+    # gallery_images = Gallery_imageSerializer()
     # image = Base64ImageField(required=False, allow_null=True)
 
     class Meta:
