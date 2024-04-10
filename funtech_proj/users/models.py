@@ -2,7 +2,7 @@ from django.contrib.auth import get_user_model
 
 User = get_user_model()
 
-'''
+"""
 # внес шаблонного кастомного юзера из заготовок,
 # чтобы можно было тестировать модели ивентов
 
@@ -47,4 +47,4 @@ class User(AbstractUser):
         ordering = ('-date_joined',)
         verbose_name = 'Пользователь'
         verbose_name_plural = 'Пользователи'
-'''
+"""

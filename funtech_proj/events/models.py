@@ -73,7 +73,6 @@ class Event(models.Model):
     registration_open = models.BooleanField(verbose_name="Регистрация открыта")
 
     # орг вводит свое значение
-    # date = models.DateTimeField(verbose_name="Дата проведения") # заменить при апдейте миграций
     date = models.DateField(verbose_name="Дата проведения")
     head_image = models.ImageField(
         verbose_name="Основное изображение",
@@ -83,8 +82,10 @@ class Event(models.Model):
     description = models.TextField(verbose_name="Описание")
     address = models.TextField(verbose_name="Адрес")
     video_link = models.URLField(  # трансляция и запись будут по одной ссылке?
-        max_length=256, verbose_name="Видео линк")
-    # program = models.TextField(verbose_name="Программа") # простой вариант, если фронт не будет успевать
+        max_length=256, verbose_name="Видео линк"
+    )
+    # program = models.TextField(verbose_name="Программа")
+    # простой вариант, если фронт не будет успевать
 
     # орг вводит список своих значений (прописано в связных моделях)
     # program_parts
@@ -94,12 +95,12 @@ class Event(models.Model):
     # участник выбирает одно из списка. или добавляет свое
     town = models.ForeignKey(
         Town,
-        on_delete=models.PROTECT,  # добавить: при вводе букв - подсказки
+        on_delete=models.PROTECT,
         verbose_name="Город",
     )
     form = models.ForeignKey(
         Form,
-        on_delete=models.PROTECT,  # добавить: при вводе букв - подсказки
+        on_delete=models.PROTECT,
         verbose_name="Формат",
     )
 
@@ -130,7 +131,6 @@ class Event(models.Model):
 
 
 class Galery_image(models.Model):
-
     event = models.ForeignKey(
         Event,
         on_delete=models.PROTECT,
@@ -150,10 +150,10 @@ class Galery_image(models.Model):
 
 class Speaker(models.Model):
     name = models.CharField(
-        "ФИО", 
+        "ФИО",
         max_length=256,
         # related_name="speaker_event",
-        )
+    )
     event = models.ForeignKey(
         Event,
         on_delete=models.PROTECT,
@@ -194,7 +194,7 @@ class ParticipantEvent(models.Model):
         User,
         on_delete=models.CASCADE,
         related_name="participated_events",
-        verbose_name='Участник ивента'
+        verbose_name="Участник ивента",
     )
     event = models.ForeignKey(
         Event,
@@ -204,15 +204,17 @@ class ParticipantEvent(models.Model):
     )
     participate_online = models.BooleanField(verbose_name="Участвую онлайн")
     areement_events = models.BooleanField(
-        verbose_name="Соглашаюсь получать приглашения")
+        verbose_name="Соглашаюсь получать приглашения"
+    )
     areement_vacancies = models.BooleanField(
-        verbose_name="Соглашаюсь получать вакансии")
+        verbose_name="Соглашаюсь получать вакансии"
+    )
     # это должно быть на фронте
     # update_profile = models.BooleanField(verbose_name="Обновить мой профиль")
 
     class Meta:
-        verbose_name = 'Участник Ивента'
-        verbose_name_plural = 'Участники Ивентов'
+        verbose_name = "Участник Ивента"
+        verbose_name_plural = "Участники Ивентов"
         ordering = ("event",)
 
 

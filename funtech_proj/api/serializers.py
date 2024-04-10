@@ -1,37 +1,29 @@
 # from rest_framework import serializers
+from events.models import Event, Form, Galery_image, Speaker, Town
 from rest_framework.serializers import ModelSerializer
 
-from events.models import (Event,
-                           Town,
-                           Form,
-                           Speaker,
-                           Galery_image)
 # from .utils import Base64ImageField
 
 
 class TownSerializer(ModelSerializer):
-
     class Meta:
         model = Town
         fields = "__all__"
 
 
 class FormSerializer(ModelSerializer):
-
     class Meta:
         model = Form
         fields = "__all__"
 
 
 class SpeakerSerializer(ModelSerializer):
-
     class Meta:
         model = Speaker
         fields = "__all__"
 
 
 class Galery_imageSerializer(ModelSerializer):
-
     class Meta:
         model = Galery_image
         fields = "__all__"
@@ -48,4 +40,4 @@ class EventSerializer(ModelSerializer):
     class Meta:
         model = Event
         # fields = "__all__"
-        exclude = ('created', 'org', 'specialization', 'stack', 'participants')
+        exclude = ("created", "org", "specialization", "stack", "participants")

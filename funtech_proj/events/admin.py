@@ -1,18 +1,16 @@
 from django.contrib import admin
 
-from .models import (
+from .models import (  # SpecializationEvent,; StackEvent,
     Event,
+    Form,
     Galery_image,
     ParticipantEvent,
     Program_part,
     Speaker,
     Specialization,
     Stack,
-    Town,
-    Form,
     Theme,
-    # SpecializationEvent,
-    # StackEvent,
+    Town,
 )
 
 

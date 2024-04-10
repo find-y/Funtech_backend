@@ -1,16 +1,12 @@
+from api.views import EventViewSet  # ProfileLists,
 from django.urls import include, path
+from rest_framework.routers import DefaultRouter
 
 # from drf_yasg import openapi
 # from drf_yasg.views import get_schema_view
 # from rest_framework import permissions
 # from django.conf.urls import url
 
-from rest_framework.routers import DefaultRouter
-
-from api.views import (
-    # ProfileLists,
-    EventViewSet,
-)
 
 v1_router = DefaultRouter()
 

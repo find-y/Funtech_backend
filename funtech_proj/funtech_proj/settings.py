@@ -55,7 +55,7 @@ INSTALLED_APPS = [
     "events.apps.EventsConfig",
     "users.apps.UsersConfig",
     "api.apps.ApiConfig",
-    'drf_yasg',
+    "drf_yasg",
 ]
 
 
