@@ -4,31 +4,25 @@ from django.contrib import admin
 
 from . import models as m
 
-m2m_model = m.Event
 m2m_style: TypeAlias = admin.TabularInline
 
 
-class Gallery_imageEventInline(m2m_style):
-    model = m2m_model.gallery_images.through
-
-
-class SpeakerEventInline(m2m_style):
-    model = m2m_model.speakers.through
-
-
 class StackEventInline(m2m_style):
-    model = m2m_model.stack.through
+    model = m.Event.stacks.through
 
 
 class SpecializationsEventInline(m2m_style):
-    model = m2m_model.specializations.through
+    model = m.Event.specializations.through
+
+
+class ParticipantEventInline(m2m_style):
+    model = m.Event.participants.through
 
 
 m2m_fields = {
-    "gallery_images": Gallery_imageEventInline,
+    "participants": ParticipantEventInline,
     "specializations": SpecializationsEventInline,
-    "speakers": SpeakerEventInline,
-    "stack": StackEventInline,
+    "stacks": StackEventInline,
 }
 
 
@@ -45,11 +39,6 @@ class TownAdmin(admin.ModelAdmin):
 
 @admin.register(m.Form)
 class FormAdmin(admin.ModelAdmin):
-    pass
-
-
-@admin.register(m.Speaker)
-class SpeakerAdmin(admin.ModelAdmin):
     pass
 
 
@@ -70,6 +59,11 @@ class StackAdmin(admin.ModelAdmin):
 
 @admin.register(m.Gallery_image)
 class Galery_imageAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(m.Speaker)
+class SpeakerAdmin(admin.ModelAdmin):
     pass
 
 

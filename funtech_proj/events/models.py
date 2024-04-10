@@ -26,12 +26,6 @@ class Form(TemplateName):
         verbose_name_plural = "Формат"
 
 
-class Speaker(TemplateName):
-    class Meta(TemplateName.Meta):
-        verbose_name = "Спикер"
-        verbose_name_plural = "Спикеры"
-
-
 class Theme(TemplateName):
     class Meta(TemplateName.Meta):
         verbose_name = "Тема"
@@ -62,61 +56,71 @@ class Stack(TemplateName):
         verbose_name_plural = "Стэк"
 
 
-class Gallery_image(models.Model):
-    image = models.ImageField(
-        upload_to="events/images/",
-        validators=(v.validate_image_file_extension,),
-    )
-
-    class Meta:
-        verbose_name = "Изображение для галереи"
-        verbose_name_plural = "Галерея изображений"
-
-
-class Event(TemplateName):
-    name = models.CharField(max_length=256, verbose_name="Название")
+class Event(models.Model):
+    # поля сгруппированы по типу
+    # данные проставляются автоматически
     org = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
         verbose_name="Организатор",
         related_name="organized_events",
     )
-    # участник выбирает одно из списка. или добавляет свое
-    town = models.ForeignKey(
-        Town,
-        on_delete=models.CASCADE,  # добавить: при вводе букв - подсказки
-        verbose_name="Город",
-    )
-    head_image = models.ForeignKey(
-        Gallery_image,
-        related_name="head_image_of_events",
-        on_delete=models.PROTECT,
-        verbose_name="Основное изображение",
-    )
-    form = models.ForeignKey(
-        Form,
-        on_delete=models.PROTECT,  # добавить: при вводе букв - подсказки
-        verbose_name="Формат",
-    )
     created = models.DateTimeField(
         auto_now_add=True,
         verbose_name="Дата создания",
     )
-    date = models.DateTimeField(verbose_name="Дата проведения")
+
+    # орг ставит галочку или нет
     registration_open = models.BooleanField(verbose_name="Регистрация открыта")
+
+    # орг вводит свое значение
+    date = models.DateField(verbose_name="Дата проведения")
+    head_image = models.ImageField(
+        verbose_name="Основное изображение",
+        upload_to="events/images/head_images/",
+        validators=(v.validate_image_file_extension,),
+    )
+    name = models.CharField(max_length=256, verbose_name="Название")
     description = models.TextField(verbose_name="Описание")
     address = models.TextField(verbose_name="Адрес")
-    video = models.URLField(  # трансляция и запись будут по одной ссылке?
+    video_link = models.URLField(  # трансляция и запись будут по одной ссылке?
         max_length=256, verbose_name="Видео линк"
     )
+    # program = models.TextField(verbose_name="Программа")
+    # простой вариант, если фронт не будет успевать
+
+    # орг вводит список своих значений (прописано в связных моделях)
+    # program_parts
+    # gallery_images
+    # speakers
+
+    # участник выбирает одно из списка. или добавляет свое
+    town = models.ForeignKey(
+        Town,
+        on_delete=models.PROTECT,
+        verbose_name="Город",
+    )
+    form = models.ForeignKey(
+        Form,
+        on_delete=models.PROTECT,
+        verbose_name="Формат",
+    )
+
     # участник выбирает несколько из списка. или добавляет свое
-    gallery_images = models.ManyToManyField(Gallery_image)
-    speakers = models.ManyToManyField(Speaker)
-    specializations = models.ManyToManyField(Specialization)
-    stack = models.ManyToManyField(Stack)
     participants = models.ManyToManyField(
         User,
         through="ParticipantEvent",
+        # verbose_name='Участники',
+    )
+    specializations = models.ManyToManyField(
+        Specialization,
+        # through="SpecializationEvent",
+        # verbose_name='Участники',
+    )
+    stacks = models.ManyToManyField(
+        Stack,
+        # through="StackEvent",
+        # verbose_name='Участники',
     )
 
     def __str__(self):
@@ -126,6 +130,53 @@ class Event(TemplateName):
         verbose_name = "Ивент"
         verbose_name_plural = "Ивенты"
         ordering = ("date",)
+
+
+class Gallery_image(models.Model):
+    event = models.ForeignKey(
+        Event,
+        on_delete=models.PROTECT,
+        related_name="gallery_images",
+        # verbose_name='Ивент'
+    )
+    image = models.ImageField(
+        # verbose_name="Изображение галереи",
+        # verbose_name_plural="Изображения галереи",
+        upload_to="events/images/gallery_images/",
+        validators=(v.validate_image_file_extension,),
+    )
+
+    class Meta:
+        verbose_name = "Изображение для галереи"
+        verbose_name_plural = "Галерея изображений"
+        ordering = ("event",)
+
+
+class Speaker(models.Model):
+    name = models.CharField(
+        "ФИО",
+        max_length=256,
+        # related_name="speaker_event",
+    )
+    event = models.ForeignKey(
+        Event,
+        on_delete=models.PROTECT,
+        related_name="speakers",
+        # related_name="speakers_events",
+        # verbose_name='Ивент'
+    )
+    position = models.CharField(max_length=256, verbose_name="Должность")
+    photo = models.ImageField(
+        # verbose_name="Изображение галереи",
+        # verbose_name_plural="Изображения галереи",
+        upload_to="events/images/speakers_photos/",
+        validators=(v.validate_image_file_extension,),
+    )
+
+    class Meta:
+        # verbose_name = 'Заявка-Навык'
+        # verbose_name_plural = 'Заявки-Навыки'
+        ordering = ("event",)
 
 
 class Program_part(TemplateName):
@@ -139,19 +190,23 @@ class Program_part(TemplateName):
     class Meta:
         verbose_name = "Часть программы"
         verbose_name_plural = "Части программы"
-        ordering = ("event",)
+        ordering = ("name",)
 
 
 class ParticipantEvent(models.Model):
+    # можно унаследовать от кастом юзера
+    # если хотим записывать сюда текущую анкету без привязки к профилю
     participant = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
         related_name="participated_events",
+        verbose_name="Участник ивента",
     )
     event = models.ForeignKey(
         Event,
-        on_delete=models.CASCADE,
+        on_delete=models.PROTECT,
         related_name="participated_events",
+        # verbose_name='Ивент'
     )
     participate_online = models.BooleanField(verbose_name="Участвую онлайн")
     agreement_events = models.BooleanField(

@@ -4,6 +4,7 @@ import random
 from data import factories as f
 from django.core.management import BaseCommand
 from factory.django import DjangoModelFactory
+from users.models import User
 
 from funtech_proj.settings import PRELOAD_DATA_BATCH_SIZE as SIZE
 
@@ -32,10 +33,16 @@ def get_random(
 
 class Command(BaseCommand):
     def handle(self, *args, **kwargs):
-        get_or_create_batch(
+        events = get_or_create_batch(
             f.EventFactory,
-            gallery_images=get_random(get_or_create_batch(f.Gallery_imageFactory)),
-            speakers=get_random(get_or_create_batch(f.SpeakerFactory)),
-            stack=get_random(get_or_create_batch(f.StackFactory)),
+            stacks=get_random(get_or_create_batch(f.StackFactory)),
             specializations=get_random(get_or_create_batch(f.SpecializationFactory)),
         )
+        users = reversed(User.objects.all())
+        for event in events:
+            f.Gallery_imageFactory(event=event)
+            f.Program_partFactory(event=event)
+            f.SpeakerFactory(event=event)
+
+        for event, user in zip(events, users):
+            f.ParticipantEventFactory(participant=user, event=event)
