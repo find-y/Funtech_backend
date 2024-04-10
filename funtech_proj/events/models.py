@@ -218,37 +218,39 @@ class ParticipantEvent(models.Model):
         ordering = ("event",)
 
 
-# class SpecializationEvent(models.Model):
-#     specialization = models.ForeignKey(
-#         Specialization,
-#         on_delete=models.CASCADE,
-#         verbose_name='Специализация'
-#     )
-#     event = models.ForeignKey(
-#         Event,
-#         on_delete=models.PROTECT,
-#         # verbose_name='Ивент'
-#     )
+"""
+class SpecializationEvent(models.Model):
+    specialization = models.ForeignKey(
+        Specialization,
+        on_delete=models.CASCADE,
+        verbose_name='Специализация'
+    )
+    event = models.ForeignKey(
+        Event,
+        on_delete=models.PROTECT,
+        # verbose_name='Ивент'
+    )
 
-#     class Meta:
-#         # verbose_name = 'Заявка-Навык'
-#         # verbose_name_plural = 'Заявки-Навыки'
-#         ordering = ("event",)
+    class Meta:
+        # verbose_name = 'Заявка-Навык'
+        # verbose_name_plural = 'Заявки-Навыки'
+        ordering = ("event",)
 
 
-# class StackEvent(models.Model):
-#     stack = models.ForeignKey(
-#         Stack,
-#         on_delete=models.CASCADE,
-#         verbose_name='Стэк'
-#     )
-#     event = models.ForeignKey(
-#         Event,
-#         on_delete=models.PROTECT,
-#         # verbose_name='Ивент'
-#     )
+class StackEvent(models.Model):
+    stack = models.ForeignKey(
+        Stack,
+        on_delete=models.CASCADE,
+        verbose_name='Стэк'
+    )
+    event = models.ForeignKey(
+        Event,
+        on_delete=models.PROTECT,
+        # verbose_name='Ивент'
+    )
 
-#     class Meta:
-#         # verbose_name = 'Заявка-Навык'
-#         # verbose_name_plural = 'Заявки-Навыки'
-#         ordering = ("event",)
+    class Meta:
+        # verbose_name = 'Заявка-Навык'
+        # verbose_name_plural = 'Заявки-Навыки'
+        ordering = ("event",)
+"""
