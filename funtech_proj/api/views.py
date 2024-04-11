@@ -1,63 +1,18 @@
-from events.models import Event
+from api import serializers as s
+from api.viewsets import ReadPatchViewSet
+from class_makers.api import viewset_class_maker as vscm
+from events import models as m
+from users.models import User
 
-# from rest_framework.views import APIView
-from rest_framework.viewsets import ModelViewSet
+TownViewSet = vscm(m.Town, s.TownSerializer)
+FormViewSet = vscm(m.Form, s.FormSerializer)
+ThemeViewSet = vscm(m.Theme, s.ThemeSerializer)
+StackViewSet = vscm(m.Stack, s.StackSerializer)
+GalleryImageViewSet = vscm(m.Gallery_image, s.Gallery_imageSerializer)
+SpeakerViewSet = vscm(m.Speaker, s.SpeakerSerializer)
+SpecializationViewSet = vscm(m.Specialization, s.SpecializationSerializer)
+Program_partViewSet = vscm(m.Program_part, s.Program_partSerializer)
+ParticipantEventViewSet = vscm(m.ParticipantEvent, s.ParticipantEventSerializer)
 
-from .serializers import EventSerializer
-
-# from users.models import (Position, Experience, Specialization, Stack)
-
-
-class EventViewSet(ModelViewSet):
-    queryset = Event.objects.all()
-    serializer_class = EventSerializer
-
-
-# заготовки для энпоинта со списками в анкету
-"""
-class ProfileLists(APIView):
-
-    def get(self, request):
-        position_list = list(
-            Position.objects.values_list("name", flat=True))
-        experience_list = list(
-            Experience.objects.values_list("name", flat=True))
-        specialization_list = list(
-            Specialization.objects.values_list("name", flat=True))
-        stack_list = list(Stack.objects.values_list("name", flat=True))
-
-        return Response(
-            {
-                "position": position_list,
-                "experience_years": experience_list,
-                "specialization": specialization_list,
-                "stack": stack_list,
-            }
-        )
-
-class ProfileLists(APIView):
-
-    def get(self, request):
-        position_list = Position.objects.all()
-        experience_list = Experience.objects.all()
-        specialization_list = Specialization.objects.all()
-        stack_list = Stack.objects.all()
-
-        position_serializer = PositionSerializer(
-            position_list, many=True)
-        experience_serializer = ExperienceSerializer(
-            experience_list, many=True)
-        specialization_serializer = SpecializationSerializer(
-            specialization_list, many=True)
-        stack_serializer = StackSerializer(
-            stack_list, many=True)
-
-        return Response(
-            {
-                "position": position_serializer.data,
-                "experience_years": experience_serializer.data,
-                "specialization": specialization_serializer.data,
-                "stack": stack_serializer.data,
-            }
-        )
-"""
+EventViewSet = vscm(m.Event, s.EventSerializer, ReadPatchViewSet)
+UserViewSet = vscm(User, s.UserSerializer, ReadPatchViewSet)

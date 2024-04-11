@@ -23,7 +23,7 @@ class Town(TemplateName):
 class Form(TemplateName):
     class Meta(TemplateName.Meta):
         verbose_name = "Формат"
-        verbose_name_plural = "Формат"
+        verbose_name_plural = "Форматы"
 
 
 class Theme(TemplateName):
@@ -110,25 +110,23 @@ class Event(models.Model):
     participants = models.ManyToManyField(
         User,
         through="ParticipantEvent",
-        # verbose_name='Участники',
+        verbose_name="Участники",
     )
     specializations = models.ManyToManyField(
         Specialization,
-        # through="SpecializationEvent",
-        # verbose_name='Участники',
+        verbose_name="Направления",
     )
     stacks = models.ManyToManyField(
         Stack,
-        # through="StackEvent",
-        # verbose_name='Участники',
+        verbose_name="Стэк",
     )
 
     def __str__(self):
         return self.name
 
     class Meta:
-        verbose_name = "Ивент"
-        verbose_name_plural = "Ивенты"
+        verbose_name = "Мероприятие"
+        verbose_name_plural = "Мероприятия"
         ordering = ("date",)
 
 
@@ -137,11 +135,10 @@ class Gallery_image(models.Model):
         Event,
         on_delete=models.PROTECT,
         related_name="gallery_images",
-        # verbose_name='Ивент'
+        verbose_name="Мероприятие",
     )
     image = models.ImageField(
-        # verbose_name="Изображение галереи",
-        # verbose_name_plural="Изображения галереи",
+        verbose_name="Изображение галереи",
         upload_to="events/images/gallery_images/",
         validators=(v.validate_image_file_extension,),
     )
@@ -153,29 +150,24 @@ class Gallery_image(models.Model):
 
 
 class Speaker(models.Model):
-    name = models.CharField(
-        "ФИО",
-        max_length=256,
-        # related_name="speaker_event",
-    )
+    name = models.CharField("ФИО", max_length=256)
     event = models.ForeignKey(
         Event,
         on_delete=models.PROTECT,
         related_name="speakers",
         # related_name="speakers_events",
-        # verbose_name='Ивент'
+        verbose_name="Мероприятие",
     )
     position = models.CharField(max_length=256, verbose_name="Должность")
     photo = models.ImageField(
-        # verbose_name="Изображение галереи",
-        # verbose_name_plural="Изображения галереи",
+        verbose_name="Фото докладчика",
         upload_to="events/images/speakers_photos/",
         validators=(v.validate_image_file_extension,),
     )
 
     class Meta:
-        # verbose_name = 'Заявка-Навык'
-        # verbose_name_plural = 'Заявки-Навыки'
+        verbose_name = "Докладчик"
+        verbose_name_plural = "Докладчики"
         ordering = ("event",)
 
 
@@ -183,9 +175,9 @@ class Program_part(TemplateName):
     event = models.ForeignKey(
         Event,
         on_delete=models.CASCADE,
-        verbose_name="Ивент",
+        verbose_name="Мероприятие",
     )
-    time = models.TimeField()
+    time = models.TimeField("Время проведения")
 
     class Meta:
         verbose_name = "Часть программы"
@@ -200,13 +192,13 @@ class ParticipantEvent(models.Model):
         User,
         on_delete=models.CASCADE,
         related_name="participated_events",
-        verbose_name="Участник ивента",
+        verbose_name="Участник мероприятия",
     )
     event = models.ForeignKey(
         Event,
         on_delete=models.PROTECT,
         related_name="participated_events",
-        # verbose_name='Ивент'
+        verbose_name="Мероприятие",
     )
     participate_online = models.BooleanField(verbose_name="Участвую онлайн")
     agreement_events = models.BooleanField(

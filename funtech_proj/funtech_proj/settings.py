@@ -45,9 +45,9 @@ INSTALLED_APPS = [
     "events.apps.EventsConfig",
     "users.apps.UsersConfig",
     "api.apps.ApiConfig",
-    "drf_yasg",
+    # "drf_yasg",
+    "drf_spectacular",
 ]
-
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -84,33 +84,11 @@ WSGI_APPLICATION = "funtech_proj.wsgi.application"
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 
-# DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.sqlite3',
-#             'NAME': str(BASE_DIR / 'db.sqlite3'),
-#         }
-#     }
-
-
-# DATABASES = {
-#     "default": {
-#         "ENGINE": os.getenv("DB_ENGINE"),  # , default='django.db.backends.postgresql'
-#         "NAME": os.getenv("DB_NAME"),  # , default='postgres'
-#         "USER": os.getenv("POSTGRES_USER"),
-#         "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
-#         "HOST": os.getenv("DB_HOST"),
-#         "PORT": os.getenv("DB_PORT"),
-#     }
-# }
-
-
 if "DB_ENGINE" in os.environ:
     DATABASES = {
         "default": {
-            "ENGINE": os.getenv(
-                "DB_ENGINE"
-            ),  # , default='django.db.backends.postgresql'
-            "NAME": os.getenv("DB_NAME"),  # , default='postgres'
+            "ENGINE": os.getenv("DB_ENGINE"),
+            "NAME": os.getenv("DB_NAME"),
             "USER": os.getenv("POSTGRES_USER"),
             "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
             "HOST": os.getenv("DB_HOST"),
@@ -171,3 +149,20 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+REST_FRAMEWORK = {
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework.authentication.TokenAuthentication",
+    ),
+}
+
+SPECTACULAR_SETTINGS = {
+    "TITLE": "Funtech API",
+    "VERSION": "1.0.0",
+    "SERVE_INCLUDE_SCHEMA": True,
+    "SWAGGER_UI_SETTINGS": {
+        "filter": True,
+    },
+    "COMPONENT_SPLIT_REQUEST": True,
+}

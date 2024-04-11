@@ -4,9 +4,17 @@
 
 Проект развернут на сервере:<br>
 https://funtech-team8.duckdns.org/api/v1/<br>
-https://funtech-team8.duckdns.org/admin<br>
-<a href="#t1">Учетные данные</a> для входа в админ-зону
 
+  Администрирование приложения может быть осуществлено:
+  - через админ панель по адресу https://funtech-team8.duckdns.org/admin
+  <a href="#t1">Учетные данные</a> для входа в админ-зону
+  - через Swagger доступный по адресу https://funtech-team8.duckdns.org/docs
+
+  Техническая документация:
+  - Redoc доступен по адресу https://funtech-team8.duckdns.org/redoc
+  - Скачать yaml-файл можно по адресу https://funtech-team8.duckdns.org
+
+<br>
 
 ## Оглавление
 - [Технологии](#технологии)
@@ -55,9 +63,15 @@ nano .env
 ```bash
 docker compose -f infra/local/docker-compose.yml --env-file .env up -d --build
 ```
-  Проект будет развернут в docker-контейнерах по адресу http://localhost
+  Проект будет развернут в docker-контейнерах по адресу http://localhost/api/v1
 
-  Администрирование приложения может быть осуществлено через админ панель по адресу http://localhost/admin
+  Администрирование приложения может быть осуществлено:
+  - через админ панель по адресу http://localhost/admin
+  - через Swagger доступный по адресу http://localhost/docs
+
+  Техническая документация:
+  - Redoc доступен по адресу http://localhost/redoc
+  - Скачать yaml-файл можно по адресу http://localhost/schema
 
 <h4 id="t1">Учетные данные для входа в админ-зону:</h4>
 <ul>

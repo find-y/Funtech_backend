@@ -1,7 +1,7 @@
 from datetime import datetime as dt
 
 import factory as f
-from django.db.models import Model
+from class_makers.db_preload import template_name_class_maker
 from events import models as m
 from factory.django import DjangoModelFactory
 from users.models import User
@@ -14,16 +14,6 @@ class UserFactory(DjangoModelFactory):
     username = f.Sequence(lambda n: f"Username_{n}")
     email = f.LazyAttribute(lambda _self: f"{_self.username.lower()}@example.com")
     password = f.Faker("password")
-
-
-def template_name_class_maker(model_: Model, verbose_name: str) -> DjangoModelFactory:
-    class Factory(DjangoModelFactory):
-        name = f.Sequence(lambda n: f"{verbose_name} №{n}")
-
-        class Meta:
-            model = model_
-
-    return Factory
 
 
 TownFactory = template_name_class_maker(m.Town, "Город")

@@ -1,77 +1,30 @@
-from typing import TypeAlias
+from class_makers.admin import admin_class_maker, inline_maker
+from events import models as m
 
-from django.contrib import admin
+PARTICIPANTS = "participants"
+SPECIALIZATIONS = "specializations"
+STACKS = "stacks"
 
-from . import models as m
-
-m2m_style: TypeAlias = admin.TabularInline
-
-
-class StackEventInline(m2m_style):
-    model = m.Event.stacks.through
-
-
-class SpecializationsEventInline(m2m_style):
-    model = m.Event.specializations.through
-
-
-class ParticipantEventInline(m2m_style):
-    model = m.Event.participants.through
-
-
+m2m_model = m.Event
 m2m_fields = {
-    "participants": ParticipantEventInline,
-    "specializations": SpecializationsEventInline,
-    "stacks": StackEventInline,
+    PARTICIPANTS: inline_maker(m2m_model, PARTICIPANTS),
+    SPECIALIZATIONS: inline_maker(m2m_model, SPECIALIZATIONS),
+    STACKS: inline_maker(m2m_model, STACKS),
 }
+EventAdmin = admin_class_maker(
+    m2m_model,
+    extra_fields=(
+        ("exclude", tuple(m2m_fields.keys())),
+        ("inlines", tuple(m2m_fields.values())),
+    ),
+)
 
-
-@admin.register(m.Event)
-class EventAdmin(admin.ModelAdmin):
-    exclude = tuple(m2m_fields.keys())
-    inlines = tuple(m2m_fields.values())
-
-
-@admin.register(m.Town)
-class TownAdmin(admin.ModelAdmin):
-    pass
-
-
-@admin.register(m.Form)
-class FormAdmin(admin.ModelAdmin):
-    pass
-
-
-@admin.register(m.Theme)
-class ThemeAdmin(admin.ModelAdmin):
-    pass
-
-
-@admin.register(m.Specialization)
-class SpecializationAdmin(admin.ModelAdmin):
-    pass
-
-
-@admin.register(m.Stack)
-class StackAdmin(admin.ModelAdmin):
-    pass
-
-
-@admin.register(m.Gallery_image)
-class Galery_imageAdmin(admin.ModelAdmin):
-    pass
-
-
-@admin.register(m.Speaker)
-class SpeakerAdmin(admin.ModelAdmin):
-    pass
-
-
-@admin.register(m.Program_part)
-class Program_partAdmin(admin.ModelAdmin):
-    pass
-
-
-@admin.register(m.ParticipantEvent)
-class ParticipantEventAdmin(admin.ModelAdmin):
-    pass
+TownAdmin = admin_class_maker(m.Town)
+FormAdmin = admin_class_maker(m.Form)
+ThemeAdmin = admin_class_maker(m.Theme)
+SpecializationAdmin = admin_class_maker(m.Specialization)
+StackAdmin = admin_class_maker(m.Stack)
+SpeakerAdmin = admin_class_maker(m.Speaker)
+Program_partAdmin = admin_class_maker(m.Program_part)
+ParticipantEventAdmin = admin_class_maker(m.ParticipantEvent)
+Galery_imageAdmin = admin_class_maker(m.Gallery_image)

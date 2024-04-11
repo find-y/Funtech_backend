@@ -1,43 +1,15 @@
-# from rest_framework import serializers
-from events.models import Event, Form, Gallery_image, Speaker, Town
-from rest_framework.serializers import ModelSerializer
+from class_makers.api import serializer_class_maker
+from events import models as em
+from users.models import User
 
-# from .utils import Base64ImageField
-
-
-class TownSerializer(ModelSerializer):
-    class Meta:
-        model = Town
-        fields = "__all__"
-
-
-class FormSerializer(ModelSerializer):
-    class Meta:
-        model = Form
-        fields = "__all__"
-
-
-class SpeakerSerializer(ModelSerializer):
-    class Meta:
-        model = Speaker
-        fields = "__all__"
-
-
-class Gallery_imageSerializer(ModelSerializer):
-    class Meta:
-        model = Gallery_image
-        fields = "__all__"
-
-
-class EventSerializer(ModelSerializer):
-    town = TownSerializer()
-    form = FormSerializer()
-    # speakers = SpeakerSerializer(many=True)
-    # speakers = SpeakerSerializer(many=True, source="speakers_events")
-    # gallery_images = Gallery_imageSerializer()
-    # image = Base64ImageField(required=False, allow_null=True)
-
-    class Meta:
-        model = Event
-        # fields = "__all__"
-        exclude = ("created", "org", "specialization", "stack", "participants")
+TownSerializer = serializer_class_maker(em.Town)
+FormSerializer = serializer_class_maker(em.Form)
+ThemeSerializer = serializer_class_maker(em.Theme)
+StackSerializer = serializer_class_maker(em.Stack)
+SpeakerSerializer = serializer_class_maker(em.Speaker)
+SpecializationSerializer = serializer_class_maker(em.Specialization)
+Program_partSerializer = serializer_class_maker(em.Program_part)
+ParticipantEventSerializer = serializer_class_maker(em.ParticipantEvent)
+Gallery_imageSerializer = serializer_class_maker(em.Gallery_image)
+EventSerializer = serializer_class_maker(em.Event)
+UserSerializer = serializer_class_maker(User)
