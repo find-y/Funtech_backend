@@ -20,7 +20,7 @@ jobs:
           script: |
             sudo systemctl stop nginx
             cd ${{ secrets.PROJECT_NAME }}
-            sudo docker-compose -f docker-compose.yml --env-file .env down
+            sudo docker-compose -f docker-compose.yml --env-file .env down -v
             sudo docker rmi ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.PROJECT_NAME }}_${{ inputs.back_or_front }}
             #  ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.PROJECT_NAME }}_frontend \
             sudo docker-compose -f docker-compose.yml --env-file .env up -d --quiet-pull

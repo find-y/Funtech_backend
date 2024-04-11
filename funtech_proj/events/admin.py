@@ -1,18 +1,14 @@
 from django.contrib import admin
 
-from .models import (
+from .models import (  # SpecializationEvent,; StackEvent,
     Event,
     Form,
-    Galery_image,
-    Galery_imageEvent,
+    Gallery_image,
     ParticipantEvent,
     Program_part,
     Speaker,
-    SpeakerEvent,
     Specialization,
-    SpecializationEvent,
     Stack,
-    StackEvent,
     Theme,
     Town,
 )
@@ -28,8 +24,8 @@ class FormAdmin(admin.ModelAdmin):
     pass
 
 
-@admin.register(Galery_image)
-class Galery_imageAdmin(admin.ModelAdmin):
+@admin.register(Gallery_image)
+class Gallery_imageAdmin(admin.ModelAdmin):
     pass
 
 
@@ -58,12 +54,12 @@ class StackAdmin(admin.ModelAdmin):
     pass
 
 
-class Galery_imageEventInline(admin.TabularInline):
-    model = Galery_imageEvent
+class Gallery_imageInline(admin.TabularInline):
+    model = Gallery_image
 
 
-class SpeakerEventInline(admin.TabularInline):
-    model = SpeakerEvent
+class SpeakerInline(admin.TabularInline):
+    model = Speaker
 
 
 class Program_partInline(admin.TabularInline):
@@ -74,21 +70,21 @@ class ParticipantEventInline(admin.TabularInline):
     model = ParticipantEvent
 
 
-class SpecializationEventInline(admin.TabularInline):
-    model = SpecializationEvent
+# class SpecializationEventInline(admin.TabularInline):
+#     model = SpecializationEvent
 
 
-class StackEventInline(admin.TabularInline):
-    model = StackEvent
+# class StackEventInline(admin.TabularInline):
+#     model = StackEvent
 
 
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
     inlines = [
-        Galery_imageEventInline,
-        SpeakerEventInline,
+        Gallery_imageInline,
+        SpeakerInline,
         Program_partInline,
         ParticipantEventInline,
-        SpecializationEventInline,
-        StackEventInline,
+        # SpecializationEventInline,
+        # StackEventInline,
     ]
