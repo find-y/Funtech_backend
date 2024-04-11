@@ -21,20 +21,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = os.getenv("SECRET_KEY")
-SECRET_KEY = "django-insecure-z6yj*jdyo@m-8$btm4ji5gy#c7gbq%sm+(d=6k48xtbpj6t@f4"
+SECRET_KEY = os.getenv("SECRET_KEY", default="SUP3R-S3CR3T-K3Y-F0R-MY-PR0J3CT")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = os.getenv("DEBUG") # убрать позже
-DEBUG = True  # убрать позже
-# DEBUG = os.getenv('DEBUG', default=False) == 'True'
+DEBUG = os.getenv("DEBUG", default=True)
 
 DOMAIN = os.getenv("DOMAIN", default="localhost")
-# ALLOWED_HOSTS = ["backend", DOMAIN]
-ALLOWED_HOSTS = ["backend", DOMAIN, "127.0.0.1"]  # убрать позже
+ALLOWED_HOSTS = ["127.0.0.1", "backend", DOMAIN]
 CSRF_TRUSTED_ORIGINS = ["http://127.0.0.1", f"http://{DOMAIN}", f"https://{DOMAIN}"]
 
 # Application definition
+
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -51,6 +48,7 @@ INSTALLED_APPS = [
     "api.apps.ApiConfig",
     "drf_yasg",
 ]
+
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -86,6 +84,15 @@ WSGI_APPLICATION = "funtech_proj.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+
+# DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.sqlite3',
+#             'NAME': str(BASE_DIR / 'db.sqlite3'),
+#         }
+#     }
+
+
 # DATABASES = {
 #     "default": {
 #         "ENGINE": os.getenv("DB_ENGINE"),  # , default='django.db.backends.postgresql'
@@ -97,32 +104,27 @@ WSGI_APPLICATION = "funtech_proj.wsgi.application"
 #     }
 # }
 
-# if 'DB_ENGINE' in os.environ:
-#     DATABASES = {
-#     "default": {
-#         "ENGINE": os.getenv("DB_ENGINE"),  # , default='django.db.backends.postgresql'
-#         "NAME": os.getenv("DB_NAME"),  # , default='postgres'
-#         "USER": os.getenv("POSTGRES_USER"),
-#         "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
-#         "HOST": os.getenv("DB_HOST"),
-#         "PORT": os.getenv("DB_PORT"),
-#     }
-# }
-# else:
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.sqlite3',
-#             'NAME': str(BASE_DIR / 'db.sqlite3'),
-#         }
-#     }
 
-
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": str(BASE_DIR / "db.sqlite3"),
+if "DB_ENGINE" in os.environ:
+    DATABASES = {
+        "default": {
+            "ENGINE": os.getenv(
+                "DB_ENGINE"
+            ),  # , default='django.db.backends.postgresql'
+            "NAME": os.getenv("DB_NAME"),  # , default='postgres'
+            "USER": os.getenv("POSTGRES_USER"),
+            "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
+            "HOST": os.getenv("DB_HOST"),
+            "PORT": os.getenv("DB_PORT"),
+        }
     }
-}
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": str(BASE_DIR / "db.sqlite3"),
+        }
+    }
 
 
 # Password validation

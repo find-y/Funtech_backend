@@ -1,4 +1,6 @@
 from events.models import Event
+
+# from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 
 from .serializers import EventSerializer
@@ -16,13 +18,12 @@ class EventViewSet(ModelViewSet):
 class ProfileLists(APIView):
 
     def get(self, request):
-        position_list = list(Position.objects.values_list("name", flat=True))
+        position_list = list(
+            Position.objects.values_list("name", flat=True))
         experience_list = list(
-            Experience.objects.values_list("name", flat=True)
-        )
+            Experience.objects.values_list("name", flat=True))
         specialization_list = list(
-            Specialization.objects.values_list("name", flat=True)
-        )
+            Specialization.objects.values_list("name", flat=True))
         stack_list = list(Stack.objects.values_list("name", flat=True))
 
         return Response(
@@ -42,13 +43,14 @@ class ProfileLists(APIView):
         specialization_list = Specialization.objects.all()
         stack_list = Stack.objects.all()
 
-        position_serializer = PositionSerializer(position_list, many=True)
-        experience_serializer = ExperienceSerializer(experience_list, many=True)
+        position_serializer = PositionSerializer(
+            position_list, many=True)
+        experience_serializer = ExperienceSerializer(
+            experience_list, many=True)
         specialization_serializer = SpecializationSerializer(
-            specialization_list,
-            many=True
-        )
-        stack_serializer = StackSerializer(stack_list, many=True)
+            specialization_list, many=True)
+        stack_serializer = StackSerializer(
+            stack_list, many=True)
 
         return Response(
             {
