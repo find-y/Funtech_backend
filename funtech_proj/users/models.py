@@ -1,13 +1,6 @@
-from django.contrib.auth import get_user_model
-
-User = get_user_model()
-
-"""
-# внес шаблонного кастомного юзера из заготовок,
-# чтобы можно было тестировать модели ивентов
-
-from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.db import models
+from events.models import Specialization, Stack
 
 
 class User(AbstractUser):
@@ -16,7 +9,18 @@ class User(AbstractUser):
         "username",
         "first_name",
         "last_name",
+        "mobilefone",
+        "workplace",
+        "position",
+        "experience",
     )
+    EXPERIENCE_CHOICES = [
+        ("", ""),
+        ("BEGINNER", "От 1 года"),
+        ("INTERMEDIATE", "От 3 лет"),
+        ("ADVANCED", "ОТ 5 лет"),
+        ("Other", "Другое"),
+    ]
 
     email = models.EmailField(
         verbose_name="Электронная почта",
@@ -39,12 +43,33 @@ class User(AbstractUser):
         verbose_name="Пароль",
         max_length=25,
     )
+    mobilefone = models.CharField(
+        verbose_name="Мобильный телефон",
+        unique=True,
+        max_length=15,
+    )
+    workplace = models.CharField(
+        verbose_name="Место работы",
+        max_length=25,
+    )
+    position = models.CharField(
+        verbose_name="Должность",
+        unique=True,
+        max_length=15,
+    )
+    experience = models.CharField(
+        max_length=20,
+        choices=EXPERIENCE_CHOICES,
+    )
+    stacks = models.ManyToManyField(Stack, related_name="users", blank=True)
+    specializations = models.ManyToManyField(
+        Specialization, related_name="users", blank=True
+    )
 
     def __str__(self):
-        return f'{self.username}'
+        return f"{self.username}"
 
     class Meta:
-        ordering = ('-date_joined',)
-        verbose_name = 'Пользователь'
-        verbose_name_plural = 'Пользователи'
-"""
+        ordering = ("-date_joined",)
+        verbose_name = "Пользователь"
+        verbose_name_plural = "Пользователи"
