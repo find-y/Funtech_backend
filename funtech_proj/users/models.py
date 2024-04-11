@@ -1,6 +1,5 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from events.models import Specialization, Stack
 
 
 class User(AbstractUser):
@@ -61,9 +60,15 @@ class User(AbstractUser):
         max_length=20,
         choices=EXPERIENCE_CHOICES,
     )
-    stacks = models.ManyToManyField(Stack, related_name="users", blank=True)
-    specializations = models.ManyToManyField(
-        Specialization, related_name="users", blank=True
+    stack = models.ManyToManyField(
+        "events.Stack",
+        related_name="users",
+        blank=True,
+    )
+    specialization = models.ManyToManyField(
+        "events.Specialization",
+        related_name="users",
+        blank=True,
     )
 
     def __str__(self):
