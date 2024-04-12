@@ -75,7 +75,7 @@ docker compose -f infra/local/docker-compose.yml --env-file .env up -d --build
 
 <h4 id="t1">Учетные данные для входа в админ-зону:</h4>
 <ul>
-  <li>login: adm
+  <li>login: adm@adm.com
   <li>password: admpw
 </ul><br>
 
@@ -87,7 +87,7 @@ docker compose -f infra/local/docker-compose.yml --env-file .env down
 
 Если также необходимо удалить том базы данных:
 ```bash
-docker compose -f infra/local/docker-compose.yml --env-file .env down -v
+docker compose -f infra/local/docker-compose.yml --env-file .env down -v && docker system prune -f
 ```
 
 [⬆️Оглавление](#оглавление)

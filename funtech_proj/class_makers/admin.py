@@ -14,17 +14,11 @@ def admin_class_maker(
         pass
 
     set_extra_fields(_Admin, extra_fields)
-    """if extra_fields is not None:
-        for field_name, field_value in extra_fields:
-            setattr(_Admin, field_name, field_value) """
-
     return _Admin
 
 
-def inline_maker(
-    model_: Model, m2m_field_name: str, m2m_style=admin.TabularInline
-) -> admin.TabularInline:
-    class _Inline(m2m_style):  # type: ignore
+def inline_maker(model_: Model, m2m_field_name: str) -> admin.TabularInline:
+    class _Inline(admin.TabularInline):
         model = getattr(model_, m2m_field_name).through
 
     return _Inline

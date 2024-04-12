@@ -18,7 +18,7 @@ def serializer_class_maker(
 def viewset_class_maker(
     model_: Model,
     serializer__class_: ModelSerializer,
-    viewset: viewsets.ViewSet = viewsets.ReadOnlyModelViewSet,
+    viewset=viewsets.ReadOnlyModelViewSet,
 ) -> viewsets.ViewSet:
     class _ViewSet(viewset):  # type: ignore
         queryset = model_.objects.all()

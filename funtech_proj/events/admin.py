@@ -19,11 +19,6 @@ EventAdmin = admin_class_maker(
     ),
 )
 
-TownAdmin = admin_class_maker(m.Town)
-FormAdmin = admin_class_maker(m.Form)
-ThemeAdmin = admin_class_maker(m.Theme)
-SpecializationAdmin = admin_class_maker(m.Specialization)
-StackAdmin = admin_class_maker(m.Stack)
 SpeakerAdmin = admin_class_maker(m.Speaker)
 Program_partAdmin = admin_class_maker(m.Program_part)
 ParticipantEventAdmin = admin_class_maker(m.ParticipantEvent)

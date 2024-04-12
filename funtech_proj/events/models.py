@@ -1,66 +1,16 @@
+# from users.models import User
+from django.conf import settings
 from django.core import validators as v
 from django.db import models
-from users.models import User
-
-
-class TemplateName(models.Model):
-    name = models.CharField("Название", max_length=256, unique=True)
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        abstract = True
-        ordering = ("name",)
-
-
-class Town(TemplateName):
-    class Meta(TemplateName.Meta):
-        verbose_name = "Город"
-        verbose_name_plural = "Города"
-
-
-class Form(TemplateName):
-    class Meta(TemplateName.Meta):
-        verbose_name = "Формат"
-        verbose_name_plural = "Форматы"
-
-
-class Theme(TemplateName):
-    class Meta(TemplateName.Meta):
-        verbose_name = "Тема"
-        verbose_name_plural = "Темы"
-
-
-class Specialization(TemplateName):
-    theme = models.ForeignKey(
-        Theme,
-        on_delete=models.CASCADE,
-        verbose_name="Тема",
-    )
-
-    class Meta(TemplateName.Meta):
-        verbose_name = "Направление"
-        verbose_name_plural = "Направления"
-
-
-class Stack(TemplateName):
-    specialization = models.ForeignKey(
-        Specialization,
-        on_delete=models.CASCADE,
-        verbose_name="Направление",
-    )
-
-    class Meta(TemplateName.Meta):
-        verbose_name = "Стэк"
-        verbose_name_plural = "Стэк"
+from shared import models as m
 
 
 class Event(models.Model):
     # поля сгруппированы по типу
     # данные проставляются автоматически
     org = models.ForeignKey(
-        User,
+        # User,
+        settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         verbose_name="Организатор",
         related_name="organized_events",
@@ -96,29 +46,31 @@ class Event(models.Model):
 
     # участник выбирает одно из списка. или добавляет свое
     town = models.ForeignKey(
-        Town,
+        m.Town,
         on_delete=models.PROTECT,
         verbose_name="Город",
     )
     form = models.ForeignKey(
-        Form,
+        m.Form,
         on_delete=models.PROTECT,
         verbose_name="Формат",
     )
 
     # участник выбирает несколько из списка. или добавляет свое
     participants = models.ManyToManyField(
-        User,
+        settings.AUTH_USER_MODEL,
         through="ParticipantEvent",
         verbose_name="Участники",
     )
     specializations = models.ManyToManyField(
-        Specialization,
+        m.Specialization,
         verbose_name="Направления",
+        related_name="events",
     )
     stacks = models.ManyToManyField(
-        Stack,
+        m.Stack,
         verbose_name="Стэк",
+        related_name="events",
     )
 
     def __str__(self):
@@ -171,7 +123,7 @@ class Speaker(models.Model):
         ordering = ("event",)
 
 
-class Program_part(TemplateName):
+class Program_part(m.TemplateName):
     event = models.ForeignKey(
         Event,
         on_delete=models.CASCADE,
@@ -189,7 +141,7 @@ class ParticipantEvent(models.Model):
     # можно унаследовать от кастом юзера
     # если хотим записывать сюда текущую анкету без привязки к профилю
     participant = models.ForeignKey(
-        User,
+        settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         related_name="participated_events",
         verbose_name="Участник мероприятия",

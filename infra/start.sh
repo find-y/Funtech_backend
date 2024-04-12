@@ -8,7 +8,7 @@ if [ "$DEBUG"==True ]; then
 
     if [ "$DJANGO_SUPERUSER_USERNAME" ]; then
         python manage.py createsuperuser \
-            --no-input \
+            --noinput \
             --username $DJANGO_SUPERUSER_USERNAME \
             --email $DJANGO_SUPERUSER_EMAIL
     fi

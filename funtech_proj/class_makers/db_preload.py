@@ -19,5 +19,4 @@ def template_name_class_maker(
             model = model_
 
     set_extra_fields(_Factory, extra_fields)
-
     return _Factory
