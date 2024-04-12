@@ -16,15 +16,3 @@ class UserFactory(DjangoModelFactory):
     workplace = f.Sequence(lambda n: f"Место работы №{n}")
     position = f.Faker("job")
     experience = f.Iterator(User.EXPERIENCE_CHOICES)
-
-    """
-    @f.post_generation
-    def specializations(self, create, extracted, **kwargs):
-        if create and extracted:
-            self.specializations.add(*extracted)
-
-    @f.post_generation
-    def stacks(self, create, extracted, **kwargs):
-        if create and extracted:
-            self.stacks.add(*extracted)
-    """

@@ -1,14 +1,7 @@
 from datetime import datetime as dt
 
 from events.models import Event, Gallery_image, ParticipantEvent, Program_part, Speaker
-from factory import (
-    Faker,
-    Iterator,
-    LazyAttribute,
-    Sequence,
-    SubFactory,
-    post_generation,
-)
+from factory import Faker, Iterator, LazyAttribute, Sequence, SubFactory
 from factory.django import DjangoModelFactory, ImageField
 
 from .shared_factories import FormFactory, TownFactory
@@ -31,16 +24,6 @@ class EventFactory(DjangoModelFactory):
     description = Faker("text")
     address = Faker("address")
     video_link = Faker("url")
-
-    @post_generation
-    def specializations(self, create, extracted, **kwargs):
-        if create and extracted:
-            self.specializations.add(*extracted)
-
-    @post_generation
-    def stacks(self, create, extracted, **kwargs):
-        if create and extracted:
-            self.stacks.add(*extracted)
 
 
 class Gallery_imageFactory(DjangoModelFactory):

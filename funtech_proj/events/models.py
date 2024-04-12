@@ -152,12 +152,14 @@ class ParticipantEvent(models.Model):
         related_name="participated_events",
         verbose_name="Мероприятие",
     )
-    participate_online = models.BooleanField(verbose_name="Участвую онлайн")
+    participate_online = models.BooleanField(
+        verbose_name="Участвую онлайн", default=False
+    )
     agreement_events = models.BooleanField(
-        verbose_name="Соглашаюсь получать приглашения"
+        verbose_name="Соглашаюсь получать приглашения", default=False
     )
     agreement_vacancies = models.BooleanField(
-        verbose_name="Соглашаюсь получать вакансии"
+        verbose_name="Соглашаюсь получать вакансии", default=False
     )
     # это должно быть на фронте
     # update_profile = models.BooleanField(verbose_name="Обновить мой профиль")
