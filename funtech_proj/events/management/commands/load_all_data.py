@@ -1,8 +1,13 @@
 import logging
 import random
 
-from data import events_factories as ef
-from data import shared_factories as sf
+from data.events_factories import (
+    EventFactory,
+    Gallery_imageFactory,
+    Program_partFactory,
+    SpeakerFactory,
+)
+from data.shared_factories import SpecializationFactory, StackFactory
 from django.core.management import BaseCommand
 from factory.django import DjangoModelFactory
 from users.models import User
@@ -34,16 +39,16 @@ def get_random(
 
 class Command(BaseCommand):
     def handle(self, *args, **kwargs):
-        events = get_or_create_batch(
-            ef.EventFactory,
-            stacks=get_random(get_or_create_batch(sf.StackFactory)),
-            specializations=get_random(get_or_create_batch(sf.SpecializationFactory)),
-        )
-        users = reversed(User.objects.all())
-        for event in events:
-            ef.Gallery_imageFactory(event=event)
-            ef.Program_partFactory(event=event)
-            ef.SpeakerFactory(event=event)
-
+        stacks = get_or_create_batch(StackFactory)
+        specializations = get_or_create_batch(SpecializationFactory)
+        events = set(get_or_create_batch(EventFactory))
+        users = set(User.objects.all())
         for event, user in zip(events, users):
-            ef.ParticipantEventFactory(participant=user, event=event)
+            user.stacks.add(*get_random(stacks))
+            user.specializations.add(*get_random(specializations))
+            event.participants.add(*get_random(list(users)))
+            event.stacks.add(*get_random(stacks))
+            event.specializations.add(*get_random(specializations))
+            Gallery_imageFactory(event=event)
+            Program_partFactory(event=event)
+            SpeakerFactory(event=event)
