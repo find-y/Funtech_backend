@@ -6,7 +6,7 @@
 https://funtech-team8.duckdns.org/api/v1/<br>
 
   Администрирование приложения может быть осуществлено:
-  - через админ панель по адресу https://funtech-team8.duckdns.org/admin
+  - через админ панель по адресу https://funtech-team8.duckdns.org/admin<br>
   <a href="#t1">Учетные данные</a> для входа в админ-зону
   - через Swagger доступный по адресу https://funtech-team8.duckdns.org/docs
 
