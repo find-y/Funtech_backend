@@ -32,7 +32,6 @@ class EventSerializer(ModelSerializer):
 
     class Meta:
         model = em.Event
-        # exclude = ("created", "org", "participants")
         fields = [
             "id",
             "specializations",
