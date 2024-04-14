@@ -6,7 +6,7 @@ SPECIALIZATIONS = "specializations"
 STACKS = "stacks"
 
 m2m_model = m.Event
-m2m_fields = {
+related_fields = {
     PARTICIPANTS: inline_m2m_maker(m2m_model, PARTICIPANTS),
     SPECIALIZATIONS: inline_m2m_maker(m2m_model, SPECIALIZATIONS),
     STACKS: inline_m2m_maker(m2m_model, STACKS),
@@ -17,8 +17,8 @@ m2m_fields = {
 EventAdmin = admin_class_maker(
     m2m_model,
     extra_fields=(
-        ("exclude", tuple(m2m_fields.keys())),
-        ("inlines", tuple(m2m_fields.values())),
+        ("exclude", tuple(related_fields.keys())),
+        ("inlines", tuple(related_fields.values())),
     ),
 )
 
