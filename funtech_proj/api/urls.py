@@ -13,6 +13,7 @@ ROUTES = (
     ("program_parts", v.Program_partViewSet),
     ("participants", v.ParticipantEventViewSet),
     ("events", v.EventViewSet),
+    ("events_short", v.EventShortViewSet),
     ("users", v.UserViewSet),
 )
 

@@ -28,13 +28,41 @@ class EventSerializer(ModelSerializer):
     program_parts = Program_partSerializer(many=True, read_only=True)
     specializations = SpecializationSerializer(many=True, read_only=True)
     stacks = StackSerializer(many=True, read_only=True)
-    # speakers = SpeakerSerializer(many=True)
-    # speakers = SpeakerSerializer(many=True, source="speakers_events")
-    # gallery_images = Gallery_imageSerializer()
     # image = Base64ImageField(required=False, allow_null=True)
 
     class Meta:
         model = em.Event
-        # fields = "__all__"
-        # exclude = ("created", "org", "specializations", "stacks", "participants")
-        exclude = ("created", "org", "participants")
+        # exclude = ("created", "org", "participants")
+        fields = [
+            "id",
+            "specializations",
+            "stacks",
+            "name",
+            "date",
+            "town",
+            "registration_open",
+            "form",
+            "head_image",
+            "description",
+            "gallery_images",
+            "speakers",
+            "program_parts",
+            "address",
+            "video_link",
+        ]
+
+
+class EventShortSerializer(EventSerializer):
+    class Meta(EventSerializer.Meta):
+        fields = [
+            "id",
+            "head_image",
+            "town",
+            "address",
+            "date",
+            "name",
+            "description",
+            "registration_open",
+            "specializations",
+            "stacks",
+        ]
