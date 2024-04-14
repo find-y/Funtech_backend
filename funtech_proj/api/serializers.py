@@ -15,3 +15,17 @@ ParticipantEventSerializer = serializer_class_maker(em.ParticipantEvent)
 Gallery_imageSerializer = serializer_class_maker(em.Gallery_image)
 EventSerializer = serializer_class_maker(em.Event)
 UserSerializer = serializer_class_maker(User)
+
+
+# class EventFullSerializer(EventSerializer):
+#     town = TownSerializer()
+#     form = FormSerializer()
+#     # speakers = SpeakerSerializer(many=True)
+#     # speakers = SpeakerSerializer(many=True, source="speakers_events")
+#     # gallery_images = Gallery_imageSerializer()
+#     # image = Base64ImageField(required=False, allow_null=True)
+
+#     class Meta:
+#         model = em.Event
+#         # fields = "__all__"
+#         exclude = ("created", "org", "specialization", "stack", "participants")
