@@ -17,8 +17,15 @@ def admin_class_maker(
     return _Admin
 
 
-def inline_maker(model_: Model, m2m_field_name: str) -> admin.TabularInline:
-    class _Inline(admin.TabularInline):
-        model = getattr(model_, m2m_field_name).through
+def inline_m2m_maker(m2m_model: Model, m2m_field_name: str) -> admin.TabularInline:
+    class M2M_Inline(admin.TabularInline):
+        model = getattr(m2m_model, m2m_field_name).through
 
-    return _Inline
+    return M2M_Inline
+
+
+def inline_fk_maker(fk_model: Model) -> admin.TabularInline:
+    class FK_Inline(admin.TabularInline):
+        model = fk_model
+
+    return FK_Inline

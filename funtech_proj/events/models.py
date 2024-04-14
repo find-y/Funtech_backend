@@ -128,6 +128,7 @@ class Program_part(m.TemplateName):
         Event,
         on_delete=models.CASCADE,
         verbose_name="Мероприятие",
+        related_name="program_parts",
     )
     time = models.TimeField("Время проведения")
 
