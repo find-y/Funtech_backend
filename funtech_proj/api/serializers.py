@@ -23,6 +23,11 @@ UserSerializer = serializer_class_maker(User)
 class EventSerializer(ModelSerializer):
     town = TownSerializer()
     form = FormSerializer()
+    gallery_images = Gallery_imageSerializer(many=True, read_only=True)
+    speakers = SpeakerSerializer(many=True, read_only=True)
+    program_parts = Program_partSerializer(many=True, read_only=True)
+    specializations = SpecializationSerializer(many=True, read_only=True)
+    stacks = StackSerializer(many=True, read_only=True)
     # speakers = SpeakerSerializer(many=True)
     # speakers = SpeakerSerializer(many=True, source="speakers_events")
     # gallery_images = Gallery_imageSerializer()
@@ -31,4 +36,5 @@ class EventSerializer(ModelSerializer):
     class Meta:
         model = em.Event
         # fields = "__all__"
-        exclude = ("created", "org", "specializations", "stack", "participants")
+        # exclude = ("created", "org", "specializations", "stacks", "participants")
+        exclude = ("created", "org", "participants")
