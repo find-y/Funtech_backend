@@ -17,5 +17,4 @@ Program_partViewSet = vscm(em.Program_part, s.Program_partSerializer)
 ParticipantEventViewSet = vscm(em.ParticipantEvent, s.ParticipantEventSerializer)
 
 EventViewSet = vscm(em.Event, s.EventSerializer, ReadPatchViewSet)
-EventShortViewSet = vscm(em.Event, s.EventShortSerializer)
 UserViewSet = vscm(User, s.UserSerializer, ReadPatchViewSet)

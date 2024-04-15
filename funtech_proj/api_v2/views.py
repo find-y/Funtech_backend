@@ -1,5 +1,6 @@
 from api_v2 import serializers as s
-from api_v2.viewsets import ListViewSet
+from api_v2.viewsets import ListViewSet, ReadPatchViewSet
+from class_makers.api import viewset_class_maker as vscm
 from django_filters.rest_framework import DjangoFilterBackend
 from events import models as em
 from rest_framework import filters
@@ -42,6 +43,10 @@ class GenericEventsViewsSet(ListViewSet):
 
 class ClosestEventsViewsSet(GenericEventsViewsSet):
     queryset = em.Event.objects.exclude(registration_open__exact=False)
+
+
+EventViewSet = vscm(em.Event, s.EventSerializer, ReadPatchViewSet)
+EventShortViewSet = vscm(em.Event, s.EventShortSerializer)
 
 
 """
