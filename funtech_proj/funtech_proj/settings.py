@@ -41,12 +41,13 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     #
     "rest_framework",
+    "django_filters",
     "drf_spectacular",
     #
-    "shared.apps.SharedConfig",
+    "api_v2.apps.ApiConfig",
     "events.apps.EventsConfig",
+    "shared.apps.SharedConfig",
     "users.apps.UsersConfig",
-    "api.apps.ApiConfig",
 ]
 
 MIDDLEWARE = [

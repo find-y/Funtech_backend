@@ -35,6 +35,7 @@ class Specialization(TemplateName):
         Theme,
         on_delete=models.CASCADE,
         verbose_name="Тема",
+        related_name="specializations",
     )
 
     class Meta(TemplateName.Meta):
@@ -47,6 +48,7 @@ class Stack(TemplateName):
         Specialization,
         on_delete=models.CASCADE,
         verbose_name="Направление",
+        related_name="stacks",
     )
 
     class Meta(TemplateName.Meta):
