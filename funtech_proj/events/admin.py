@@ -1,90 +1,28 @@
-from django.contrib import admin
+from class_makers.admin import admin_class_maker, inline_fk_maker, inline_m2m_maker
+from events import models as m
 
-from .models import (  # SpecializationEvent,; StackEvent,
-    Event,
-    Form,
-    Gallery_image,
-    ParticipantEvent,
-    Program_part,
-    Speaker,
-    Specialization,
-    Stack,
-    Theme,
-    Town,
+PARTICIPANTS = "participants"
+SPECIALIZATIONS = "specializations"
+STACKS = "stacks"
+
+m2m_model = m.Event
+related_fields = {
+    PARTICIPANTS: inline_m2m_maker(m2m_model, PARTICIPANTS),
+    SPECIALIZATIONS: inline_m2m_maker(m2m_model, SPECIALIZATIONS),
+    STACKS: inline_m2m_maker(m2m_model, STACKS),
+    "gallery_images": inline_fk_maker(m.Gallery_image),
+    "program_parts": inline_fk_maker(m.Program_part),
+    "speakers": inline_fk_maker(m.Speaker),
+}
+EventAdmin = admin_class_maker(
+    m2m_model,
+    extra_fields=(
+        ("exclude", tuple(related_fields.keys())),
+        ("inlines", tuple(related_fields.values())),
+    ),
 )
 
-
-@admin.register(Town)
-class TownAdmin(admin.ModelAdmin):
-    pass
-
-
-@admin.register(Form)
-class FormAdmin(admin.ModelAdmin):
-    pass
-
-
-@admin.register(Gallery_image)
-class Gallery_imageAdmin(admin.ModelAdmin):
-    pass
-
-
-@admin.register(Speaker)
-class SpeakerAdmin(admin.ModelAdmin):
-    pass
-
-
-@admin.register(Theme)
-class ThemeAdmin(admin.ModelAdmin):
-    pass
-
-
-@admin.register(Program_part)
-class Program_partAdmin(admin.ModelAdmin):
-    pass
-
-
-@admin.register(Specialization)
-class SpecializationAdmin(admin.ModelAdmin):
-    pass
-
-
-@admin.register(Stack)
-class StackAdmin(admin.ModelAdmin):
-    pass
-
-
-class Gallery_imageInline(admin.TabularInline):
-    model = Gallery_image
-
-
-class SpeakerInline(admin.TabularInline):
-    model = Speaker
-
-
-class Program_partInline(admin.TabularInline):
-    model = Program_part
-
-
-class ParticipantEventInline(admin.TabularInline):
-    model = ParticipantEvent
-
-
-# class SpecializationEventInline(admin.TabularInline):
-#     model = SpecializationEvent
-
-
-# class StackEventInline(admin.TabularInline):
-#     model = StackEvent
-
-
-@admin.register(Event)
-class EventAdmin(admin.ModelAdmin):
-    inlines = [
-        Gallery_imageInline,
-        SpeakerInline,
-        Program_partInline,
-        ParticipantEventInline,
-        # SpecializationEventInline,
-        # StackEventInline,
-    ]
+SpeakerAdmin = admin_class_maker(m.Speaker)
+Program_partAdmin = admin_class_maker(m.Program_part)
+ParticipantEventAdmin = admin_class_maker(m.ParticipantEvent)
+Galery_imageAdmin = admin_class_maker(m.Gallery_image)

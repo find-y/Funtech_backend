@@ -16,8 +16,6 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-AUTH_USER_MODEL = "users.User"
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
@@ -41,15 +39,19 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    #
     "rest_framework",
+    "django_filters",
+    "drf_spectacular",
     "rest_framework.authtoken",
     "djoser",
+    #
+    "api_v1.apps.ApiConfig",
+    "api_v2.apps.ApiConfig",
     "events.apps.EventsConfig",
+    "shared.apps.SharedConfig",
     "users.apps.UsersConfig",
-    "api.apps.ApiConfig",
-    "drf_yasg",
 ]
-
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -86,33 +88,11 @@ WSGI_APPLICATION = "funtech_proj.wsgi.application"
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 
-# DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.sqlite3',
-#             'NAME': str(BASE_DIR / 'db.sqlite3'),
-#         }
-#     }
-
-
-# DATABASES = {
-#     "default": {
-#         "ENGINE": os.getenv("DB_ENGINE"),  # , default='django.db.backends.postgresql'
-#         "NAME": os.getenv("DB_NAME"),  # , default='postgres'
-#         "USER": os.getenv("POSTGRES_USER"),
-#         "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
-#         "HOST": os.getenv("DB_HOST"),
-#         "PORT": os.getenv("DB_PORT"),
-#     }
-# }
-
-
 if "DB_ENGINE" in os.environ:
     DATABASES = {
         "default": {
-            "ENGINE": os.getenv(
-                "DB_ENGINE"
-            ),  # , default='django.db.backends.postgresql'
-            "NAME": os.getenv("DB_NAME"),  # , default='postgres'
+            "ENGINE": os.getenv("DB_ENGINE"),
+            "NAME": os.getenv("DB_NAME"),
             "USER": os.getenv("POSTGRES_USER"),
             "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
             "HOST": os.getenv("DB_HOST"),
@@ -158,7 +138,7 @@ REST_FRAMEWORK = {
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "ru-ru"
 
 TIME_ZONE = "UTC"
 
@@ -181,3 +161,27 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+REST_FRAMEWORK = {
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework.authentication.TokenAuthentication",
+    ),
+}
+
+SPECTACULAR_SETTINGS = {
+    "TITLE": "Funtech API",
+    "VERSION": "1.0.0",
+    "SERVE_INCLUDE_SCHEMA": True,
+    "SWAGGER_UI_SETTINGS": {
+        "filter": True,
+    },
+    "COMPONENT_SPLIT_REQUEST": True,
+}
+
+AUTH_USER_MODEL = "users.User"
+PRELOAD_DATA_BATCH_SIZE = 10
+FIELD_NOT_REQUIRED = {
+    "blank": True,
+    "null": True,
+}

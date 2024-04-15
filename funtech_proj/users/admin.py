@@ -3,6 +3,14 @@ from django.contrib.auth.admin import UserAdmin
 from users.models import User
 
 
+class StackEventInline(admin.TabularInline):
+    model = User.stacks.through
+
+
+class SpecializationsEventInline(admin.TabularInline):
+    model = User.specializations.through
+
+
 class BaseAdmin(admin.ModelAdmin):
     """Базовый класс для настроек административного интерфейса."""
 
@@ -13,6 +21,8 @@ class BaseAdmin(admin.ModelAdmin):
 @admin.register(User)
 class UserAdminPanel(UserAdmin):
     """Класс для настройки административного интерфейса пользователей."""
+
+    inlines = (StackEventInline, SpecializationsEventInline)
 
     list_display = (
         "username",
