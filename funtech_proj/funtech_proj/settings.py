@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "django_filters",
     "drf_spectacular",
     #
+    "api_v1.apps.ApiConfig",
     "api_v2.apps.ApiConfig",
     "events.apps.EventsConfig",
     "shared.apps.SharedConfig",
