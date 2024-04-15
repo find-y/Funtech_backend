@@ -1,4 +1,4 @@
-from api import views as v
+from api_v1 import views as v
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 
@@ -22,5 +22,5 @@ for url_prefix, view_set in ROUTES:
     v1_router.register(url_prefix, view_set, basename=url_prefix)
 
 urlpatterns = [
-    path("v1/", include(v1_router.urls)),
+    path("/", include(v1_router.urls)),
 ]

@@ -1,5 +1,5 @@
-from api import serializers as s
-from api.viewsets import ReadPatchViewSet
+from api_v1 import serializers as s
+from api_v1.viewsets import ReadPatchViewSet
 from class_makers.api import viewset_class_maker as vscm
 from events import models as em
 from shared import models as sm

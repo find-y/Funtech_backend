@@ -41,12 +41,16 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     #
     "rest_framework",
+    "django_filters",
     "drf_spectacular",
+    "rest_framework.authtoken",
+    "djoser",
     #
-    "shared.apps.SharedConfig",
+    "api_v1.apps.ApiConfig",
+    "api_v2.apps.ApiConfig",
     "events.apps.EventsConfig",
+    "shared.apps.SharedConfig",
     "users.apps.UsersConfig",
-    "api.apps.ApiConfig",
 ]
 
 MIDDLEWARE = [
@@ -122,11 +126,19 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+REST_FRAMEWORK = {
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.AllowAny",
+    ],
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.TokenAuthentication",
+    ],
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "ru-ru"
 
 TIME_ZONE = "UTC"
 
