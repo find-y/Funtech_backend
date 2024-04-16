@@ -16,3 +16,11 @@ def enable_db_access_for_all_tests(db):
 @pytest.fixture(autouse=True)
 def load_data():
     load_db()
+
+
+@pytest.fixture(autouse=True)
+def mock_celery_delay(monkeypatch):
+    def mock_delay(*args, **kwargs):
+        pass
+
+    monkeypatch.setattr("api_v2.views.background_task.delay", mock_delay)

@@ -27,6 +27,28 @@ https://funtech-team8.duckdns.org/api/v2/ <br>
 
 <br>
 
+## Технологии
+<details><summary>Подробнее</summary><br>
+
+[![Python](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12-blue?logo=python)](https://www.python.org/)
+[![Django](https://img.shields.io/badge/Django-5.0-blue?logo=Django)](https://www.djangoproject.com/)
+[![DRF](https://img.shields.io/badge/-djangoRESTframework-464646?logo=djangorestframework)](https://www.django-rest-framework.org/)
+[![celery](https://img.shields.io/badge/-Celery-464646?logo=celery)](https://docs.celeryq.dev/en/stable/)
+[![rabbitmq](https://img.shields.io/badge/-RabbitMQ-464646?logo=rabbitmq)](https://www.rabbitmq.com/)
+[![flower](https://img.shields.io/badge/-Flower-464646?logo=flower)](https://flower.readthedocs.io/en/latest/)
+[![docker_compose](https://img.shields.io/badge/-Docker%20Compose-464646?logo=docker)](https://docs.docker.com/compose/)
+[![Pytest](https://img.shields.io/badge/-pytest-464646?logo=Pytest)](https://docs.pytest.org/en/latest/)
+[![Pytest-django](https://img.shields.io/badge/-pytest--django-464646?logo=Pytest)](https://pytest-django.readthedocs.io/en/latest/index.html)
+[![pytest-cov](https://img.shields.io/badge/-pytest--cov-464646?logo=codecov)](https://pytest-cov.readthedocs.io/en/latest/)
+[![factoryboy](https://img.shields.io/badge/-factoryboy-464646?logo=factoryboy)](https://factoryboy.readthedocs.io/en/stable/index.html)
+[![pre-commit](https://img.shields.io/badge/-pre--commit-464646?logo=pre-commit)](https://pre-commit.com/)
+
+[⬆️Оглавление](#оглавление)
+
+</details>
+
+<br>
+
 ## Установка приложения:
 
 <details><summary>Предварительные условия</summary>
@@ -79,7 +101,6 @@ https://funtech-team8.duckdns.org/api/v2/ <br>
 ```bash
     python funtech_proj/manage.py makemigrations
     pytest -x --cov --cov-config=.coveragerc
-    deactivate
 ```
 
 [⬆️Оглавление](#оглавление)
@@ -95,6 +116,8 @@ https://funtech-team8.duckdns.org/api/v2/ <br>
   Проект будет развернут в docker-контейнерах по адресу <br>
   http://localhost/api/v1 <br>
   http://localhost/api/v2 <br>
+
+  Мониторинг фоновых задач Celery осуществляется по адресу: http://localhost:5555/ .
 
   Администрирование приложения может быть осуществлено:
   - через админ панель по адресу http://localhost/admin
@@ -128,14 +151,14 @@ https://funtech-team8.duckdns.org/api/v2/ <br>
 ## Удаление приложения:
 Из корневой директории проекта выполните команду:
 ```bash
-    cd .. && rm -fr Funtech_backend
+    cd .. && rm -fr Funtech_backend && deactivate
 ```
 
 [⬆️Оглавление](#оглавление)
 
 <br>
 
-## Авторы:
+## Авторы (в алфавитном порядке):
 [Aleksei Proskuriakov](https://github.com/alexpro2022)
 
 [⬆️В начало](#funtech_backend)

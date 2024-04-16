@@ -8,6 +8,12 @@ from rest_framework.test import APIClient
 from .utils import check, get_urls
 
 
+class MockTask:
+    @staticmethod
+    def delay():
+        assert 0, "INSIDE MOCK"
+
+
 @pytest.mark.parametrize(
     "url",
     (

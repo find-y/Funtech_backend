@@ -29,8 +29,9 @@ DOMAIN = os.getenv("DOMAIN", default="localhost")
 ALLOWED_HOSTS = ["127.0.0.1", "backend", DOMAIN]
 CSRF_TRUSTED_ORIGINS = ["http://127.0.0.1", f"http://{DOMAIN}", f"https://{DOMAIN}"]
 
-# Application definition
+CELERY_BROKER_URL = os.getenv("CELERY_BROKER_URL")
 
+# Application definition
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -163,8 +164,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 REST_FRAMEWORK = {
-    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
-    "DEFAULT_AUTHENTICATION_CLASSES": (
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",  # type: ignore
+    "DEFAULT_AUTHENTICATION_CLASSES": (  # type: ignore
         "rest_framework.authentication.TokenAuthentication",
     ),
 }
