@@ -51,9 +51,7 @@ class ClosestEventsViewsSet(GenericEventsViewsSet):
     queryset = em.Event.objects.exclude(registration_open__exact=False)
 
 
-# EventViewSet = vscm(em.Event, s.EventSerializer, ReadPatchViewSet)
 EventShortViewSet = vscm(em.Event, s.EventShortSerializer)
-# ParticipantEventViewSet = vscm(em.ParticipantEvent, s.ParticipantEventSerializer)
 
 
 class ParticipantEventViewSet(ModelViewSet):
@@ -89,16 +87,3 @@ class EventViewSet(ModelViewSet):
             event=get_object_or_404(em.Event, id=pk),
         ).delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-
-
-"""
-class MayBeInterestingViewSet(GenericEventsViewsSet):
-
-    def get_queryset(self):
-        # 1 stacks
-        # 2 specializations
-        return sm.Specialization.objects.filter(
-            town__exact=self.request.user.
-            registration_open__exact=True,
-        ).order_by("date")
-"""

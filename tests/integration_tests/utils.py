@@ -6,11 +6,21 @@ Dict: TypeAlias = dict[str, Any]
 ResponseJson: TypeAlias = Dict | list[Dict]
 
 
+def contains(item, *words) -> bool:
+    for word in words:
+        if item.__contains__(word):
+            return True
+    return False
+
+
 def get_urls(url_patterns):
+    def get_name(item):
+        return vars(item).get("name")
+
     routes = {
-        reverse(vars(item).get("name"), args=["1"])
-        if vars(item).get("name").__contains__("detail")
-        else reverse(vars(item).get("name"))
+        reverse(get_name(item), args=["1"])
+        if contains(get_name(item), "detail", "favorite")
+        else reverse(get_name(item))
         for item in vars(url_patterns[0]).get("urlconf_name")
     }
     routes.remove("/")

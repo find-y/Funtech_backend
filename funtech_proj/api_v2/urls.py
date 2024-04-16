@@ -6,9 +6,9 @@ ROUTES = (
     ("towns", v.TownViewSet),
     ("specializations", v.SpecializationViewSet),
     ("stack", v.StackViewSet),
-    ("events", v.EventViewSet),
     ("events_short", v.EventShortViewSet),
     ("events/closest", v.ClosestEventsViewsSet),
+    ("events", v.EventViewSet),
     ("participants", v.ParticipantEventViewSet),
 )
 """
