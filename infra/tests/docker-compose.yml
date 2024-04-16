@@ -1,0 +1,31 @@
+version: '3'
+services:
+
+  db:
+    image: postgres:15.1-alpine
+    restart: always
+    volumes:
+      - db_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_PASSWORD=$POSTGRES_PASSWORD
+    expose:
+      - $DB_PORT
+
+  backend:
+    build:
+      context: ../..
+      dockerfile: ./infra/tests/Dockerfile
+    # command: bash -c "chmod +x start.sh && ./start.sh"
+    command: bash -c "pytest"
+    depends_on:
+      - db
+    env_file:
+      - ../../.env
+    volumes:
+      - static:/app/static/
+      - media:/app/media/
+
+volumes:
+  db_data:
+  static:
+  media:

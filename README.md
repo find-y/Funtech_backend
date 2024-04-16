@@ -108,3 +108,15 @@ cd .. && rm -fr Funtech_backend
 [Aleksei Proskuriakov](https://github.com/alexpro2022)
 
 [⬆️В начало](#funtech_backend)
+
+
+```bash
+docker compose -f infra/tests/docker-compose.yml --env-file .env up --build --abort-on-container-exit && \
+docker compose -f infra/tests/docker-compose.yml --env-file .env down -v && \
+docker system prune -f
+```
+
+
+```bash
+pytest -x --cov --cov-config=.coveragerc
+```
