@@ -65,9 +65,7 @@ services:
       - ./.env
 
   celery_worker:
-    build:
-      context: ../..
-      dockerfile: ./infra/Dockerfile
+    image: "${DOCKERHUB_USERNAME}/${PROJECT_NAME}_backend"
     command: bash -c "celery -A funtech_proj.celery worker --loglevel=info"
     volumes:
       - media:/src/media/
