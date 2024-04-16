@@ -83,7 +83,7 @@ https://funtech-team8.duckdns.org/api/v2/ <br>
 
 <br>
 
-## Запуск тестов (Виртуальное окружение):
+## Запуск тестов (Виртуальное окружение) Codecov=97%:
 
 1. Создайте и активируйте виртуальное окружение и установите необходимые зависимости::
    * Если у вас Linux/macOS
@@ -118,6 +118,10 @@ https://funtech-team8.duckdns.org/api/v2/ <br>
   http://localhost/api/v2 <br>
 
   Мониторинг фоновых задач Celery осуществляется по адресу: http://localhost:5555/ .
+
+  Для активации фоновых задач необходимо выполнить GET-запрос к эндпойнтам:
+  - специализаций (http://localhost/api/v2/specializations/?theme=3)
+  - стека (http://localhost/api/v2/stack/?specialization=4)
 
   Администрирование приложения может быть осуществлено:
   - через админ панель по адресу http://localhost/admin

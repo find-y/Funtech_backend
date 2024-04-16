@@ -48,6 +48,37 @@ services:
       - static:/var/html/static/
       - media:/var/html/media/
 
+  rabbitmq:
+    image: rabbitmq:latest
+    ports:
+      - $RABBITMQ_PORT:$RABBITMQ_PORT
+    env_file:
+      - ./.env
+
+  flower:
+    image: mher/flower
+    ports:
+      - 5555:5555
+    depends_on:
+      - rabbitmq
+    env_file:
+      - ./.env
+
+  celery_worker:
+    build:
+      context: ../..
+      dockerfile: ./infra/Dockerfile
+    command: bash -c "celery -A funtech_proj.celery worker --loglevel=info"
+    volumes:
+      - media:/src/media/
+    links:
+      - rabbitmq
+    depends_on:
+      - rabbitmq
+      - backend
+    env_file:
+      - ./.env
+
 
 volumes:
   db_data:

@@ -39,7 +39,7 @@ services:
   rabbitmq:
     image: rabbitmq:latest
     ports:
-      - 5672:5672
+      - $RABBITMQ_PORT:$RABBITMQ_PORT
     env_file:
       - ../../.env
 
