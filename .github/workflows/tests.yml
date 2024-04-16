@@ -26,4 +26,5 @@ jobs:
           pip install -r requirements/test.requirements.txt
       - name: Run Tests
         run: |
+          python funtech_proj/manage.py makemigrations
           pytest --cov --cov-report=xml
