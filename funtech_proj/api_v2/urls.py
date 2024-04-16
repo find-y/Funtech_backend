@@ -6,7 +6,10 @@ ROUTES = (
     ("towns", v.TownViewSet),
     ("specializations", v.SpecializationViewSet),
     ("stack", v.StackViewSet),
+    ("events_short", v.EventShortViewSet),
     ("events/closest", v.ClosestEventsViewsSet),
+    ("events", v.EventViewSet),
+    ("participants", v.ParticipantEventViewSet),
 )
 """
     ("forms", v.FormViewSet),
@@ -14,7 +17,6 @@ ROUTES = (
     ("speakers", v.SpeakerViewSet),
     ("images", v.GalleryImageViewSet),
     ("program_parts", v.Program_partViewSet),
-    ("participants", v.ParticipantEventViewSet),
     ("events/interesting", v.MayBeInterestingViewSet),
     ("events", v.EventViewSet),
     ("users", v.UserViewSet),

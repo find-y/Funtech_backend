@@ -5,7 +5,7 @@ from rest_framework.serializers import ModelSerializer
 
 def serializer_class_maker(
     model_: Model,
-    fields_: tuple[str] | str = "__all__",
+    fields_: tuple[str] | str = "__all__",  # type: ignore
 ) -> ModelSerializer:
     class _Serializer(ModelSerializer):
         class Meta:
