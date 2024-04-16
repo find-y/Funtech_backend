@@ -4,6 +4,7 @@ from class_makers.api import viewset_class_maker as vscm
 from django_filters.rest_framework import DjangoFilterBackend
 from events import models as em
 from rest_framework import filters
+from rest_framework.viewsets import ModelViewSet
 from shared import models as sm
 
 
@@ -47,6 +48,14 @@ class ClosestEventsViewsSet(GenericEventsViewsSet):
 
 EventViewSet = vscm(em.Event, s.EventSerializer, ReadPatchViewSet)
 EventShortViewSet = vscm(em.Event, s.EventShortSerializer)
+# ParticipantEventViewSet = vscm(em.ParticipantEvent, s.ParticipantEventSerializer)
+
+
+class ParticipantEventViewSet(ModelViewSet):
+    queryset = em.ParticipantEvent.objects.all()
+    serializer_class = s.ParticipantEventSerializer
+    # pagination_class = None
+    # permission_classes = (IsAuthenticatedOrReadOnly,)
 
 
 """
@@ -59,9 +68,7 @@ ThemeViewSet = vscm(sm.Theme, s.ThemeSerializer)
 GalleryImageViewSet = vscm(em.Gallery_image, s.Gallery_imageSerializer)
 SpeakerViewSet = vscm(em.Speaker, s.SpeakerSerializer)
 Program_partViewSet = vscm(em.Program_part, s.Program_partSerializer)
-ParticipantEventViewSet = vscm(em.ParticipantEvent, s.ParticipantEventSerializer)
 
-EventViewSet = vscm(em.Event, s.EventSerializer, ReadPatchViewSet)
 UserViewSet = vscm(User, s.UserSerializer, ReadPatchViewSet)
 
 class MayBeInterestingViewSet(GenericEventsViewsSet):

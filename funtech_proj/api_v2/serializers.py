@@ -14,7 +14,7 @@ SpecializationSerializer = serializer_class_maker(sm.Specialization)
 
 SpeakerSerializer = serializer_class_maker(em.Speaker)
 Program_partSerializer = serializer_class_maker(em.Program_part)
-ParticipantEventSerializer = serializer_class_maker(em.ParticipantEvent)
+# ParticipantEventSerializer = serializer_class_maker(em.ParticipantEvent)
 Gallery_imageSerializer = serializer_class_maker(em.Gallery_image)
 # EventSerializer = serializer_class_maker(em.Event)
 UserSerializer = serializer_class_maker(User)
@@ -65,3 +65,9 @@ class EventShortSerializer(EventSerializer):
             "specializations",
             "stacks",
         ]
+
+
+class ParticipantEventSerializer(ModelSerializer):
+    class Meta:
+        model = em.ParticipantEvent
+        fields = "__all__"
