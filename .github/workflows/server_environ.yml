@@ -39,8 +39,8 @@ jobs:
               RABBITMQ_DEFAULT_USER=${{ secrets.RABBITMQ_DEFAULT_USER }}
               RABBITMQ_DEFAULT_PASS=${{ secrets.RABBITMQ_DEFAULT_PASS }}
 
-              CELERY_BROKER_URL=amqp://${RABBITMQ_DEFAULT_USER}:${RABBITMQ_DEFAULT_PASS}@rabbitmq:${RABBITMQ_PORT}//
-              CELERY_DATABASE_URL=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${DB_HOST}:${DB_PORT}
+              CELERY_BROKER_URL=amqp://${{ secrets.RABBITMQ_DEFAULT_USER }}:${{ secrets.RABBITMQ_DEFAULT_PASS }}@rabbitmq:${{ secrets.RABBITMQ_PORT }}//
+              CELERY_DATABASE_URL=postgres://${{ secrets.POSTGRES_USER }}:${{ secrets.POSTGRES_PASSWORD }}@${{ secrets.DB_HOST }}:${{ secrets.DB_PORT }}
 
               PROJECT_NAME=${{ secrets.PROJECT_NAME }}
               DOCKERHUB_USERNAME=${{ secrets.DOCKERHUB_USERNAME }}
