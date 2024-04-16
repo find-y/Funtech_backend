@@ -1,9 +1,12 @@
 from api_v2 import serializers as s
-from api_v2.viewsets import ListViewSet, ReadPatchViewSet
+from api_v2.viewsets import ListViewSet
 from class_makers.api import viewset_class_maker as vscm
+from django.shortcuts import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
 from events import models as em
-from rest_framework import filters
+from rest_framework import filters, status
+from rest_framework.decorators import action
+from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from shared import models as sm
 
@@ -46,7 +49,7 @@ class ClosestEventsViewsSet(GenericEventsViewsSet):
     queryset = em.Event.objects.exclude(registration_open__exact=False)
 
 
-EventViewSet = vscm(em.Event, s.EventSerializer, ReadPatchViewSet)
+# EventViewSet = vscm(em.Event, s.EventSerializer, ReadPatchViewSet)
 EventShortViewSet = vscm(em.Event, s.EventShortSerializer)
 # ParticipantEventViewSet = vscm(em.ParticipantEvent, s.ParticipantEventSerializer)
 
@@ -58,29 +61,32 @@ class ParticipantEventViewSet(ModelViewSet):
     # permission_classes = (IsAuthenticatedOrReadOnly,)
 
 
-# class EventViewSet(ModelViewSet):
-#     queryset = em.Event.objects.all()
-#     serializer_class = s.EventSerializer
+class EventViewSet(ModelViewSet):
+    queryset = em.Event.objects.all()
+    serializer_class = s.EventSerializer
 
-# @action(
-#     detail=True,
-#     methods=['POST', 'DELETE'],
-#     # permission_classes=(IsAuthenticated,),
-# )
-# def favorite(self, request, pk):
-#     user = request.user
-#     data = {'user': user.id, 'event_id': pk}
-#     serializer = s.ParticipantEventSerializer(data=data,
-#                                               context={'request': request})
-#     if request.method == 'POST':
-#         serializer.is_valid(raise_exception=True)
-#         serializer.save()
-#         return Response(serializer.data, status=status.HTTP_201_CREATED)
+    @action(
+        detail=True,
+        methods=["POST", "DELETE"],
+        # permission_classes=(IsAuthenticated,),
+    )
+    def favorite(self, request, pk):
+        user = request.user
+        data = {"user": user.id, "event_id": pk}
+        serializer = s.ParticipantEventSerializer(
+            data=data, context={"request": request}
+        )
+        if request.method == "POST":
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
 
-#     get_object_or_404(em.ParticipantEvent,
-#                       user=user,
-#                       recipe_id=get_object_or_404(em.Event, id=pk)).delete()
-#     return Response(status=status.HTTP_204_NO_CONTENT)
+        get_object_or_404(
+            em.ParticipantEvent,
+            participant=user,
+            event=get_object_or_404(em.Event, id=pk),
+        ).delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 """
