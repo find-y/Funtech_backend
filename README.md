@@ -3,22 +3,22 @@
 [![CI/CD](https://github.com/Team88888/Funtech_backend/actions/workflows/ci_cd.yml/badge.svg)](https://github.com/Team88888/Funtech_backend/actions/workflows/ci_cd.yml)
 
 Проект развернут на сервере:<br>
-https://funtech-team8.duckdns.org/api/v1/<br>
+https://funtech-team8.duckdns.org/api/v1/ <br>
+https://funtech-team8.duckdns.org/api/v2/ <br>
 
   Администрирование приложения может быть осуществлено:
   - через админ панель по адресу https://funtech-team8.duckdns.org/admin<br>
-  <a href="#t1">Учетные данные</a> для входа в админ-зону
+      <a href="#t1">Учетные данные</a> для входа в админ-зону
   - через Swagger доступный по адресу https://funtech-team8.duckdns.org/docs
 
   Техническая документация:
   - Redoc доступен по адресу https://funtech-team8.duckdns.org/redoc
-  - Скачать yaml-файл можно по адресу https://funtech-team8.duckdns.org
+  - Скачать yaml-файл можно по адресу https://funtech-team8.duckdns.org/schema
 
 <br>
 
 ## Оглавление
 - [Технологии](#технологии)
-- [Описание работы](#описание-работы)
 - [Установка приложения](#установка-приложения)
 - [Запуск тестов](#запуск-тестов)
 - [Запуск приложения](#запуск-приложения)
@@ -34,24 +34,27 @@ https://funtech-team8.duckdns.org/api/v1/<br>
 Предполагается, что пользователь установил [Docker](https://docs.docker.com/engine/install/) и [Docker Compose](https://docs.docker.com/compose/install/) на локальной машине. Проверить наличие можно выполнив команды:
 
 ```bash
-docker --version && docker-compose --version
+    docker --version && docker-compose --version
 ```
 </details>
 
 <br>
 
-**!!! Для пользователей Windows обязательно выполнить команду:** иначе файл start.sh при клонировании будет бракован:
+[![Typing SVG](https://readme-typing-svg.herokuapp.com?font=Fira+Code&pause=250&width=435&lines=Для+пользователей+Windows:)](https://github.com/alexpro2022)
+
+**!!! обязательно выполнить команду:** иначе файл start.sh при клонировании будет бракован:
 ```bash
-git config --global core.autocrlf false
+    git config --global core.autocrlf false
 ```
+<br><br>
 
 Клонируйте репозиторий с GitHub и введите данные для переменных окружения (значения даны для примера, но их можно оставить):
 
 ```bash
-git clone https://github.com/Team88888/Funtech_backend.git
-cd Funtech_backend
-cp env_example .env
-nano .env
+    git clone https://github.com/Team88888/Funtech_backend.git
+    cd Funtech_backend
+    cp env_example .env
+    nano .env
 ```
 
 [⬆️Оглавление](#оглавление)
@@ -74,9 +77,9 @@ nano .env
 
 2. Из корневой директории проекта выполните команду:
 ```bash
-python funtech_proj/manage.py makemigrations
-pytest -x --cov --cov-config=.coveragerc
-deactivate
+    python funtech_proj/manage.py makemigrations
+    pytest -x --cov --cov-config=.coveragerc
+    deactivate
 ```
 
 [⬆️Оглавление](#оглавление)
@@ -87,9 +90,11 @@ deactivate
 
 1. Из корневой директории проекта выполните команду:
 ```bash
-docker compose -f infra/local/docker-compose.yml --env-file .env up -d --build
+    docker compose -f infra/local/docker-compose.yml --env-file .env up -d --build
 ```
-  Проект будет развернут в docker-контейнерах по адресу http://localhost/api/v1
+  Проект будет развернут в docker-контейнерах по адресу <br>
+  http://localhost/api/v1 <br>
+  http://localhost/api/v2 <br>
 
   Администрирование приложения может быть осуществлено:
   - через админ панель по адресу http://localhost/admin
@@ -108,12 +113,12 @@ docker compose -f infra/local/docker-compose.yml --env-file .env up -d --build
 2. Остановить docker и удалить контейнеры можно командой из корневой директории проекта:
 
 ```bash
-docker compose -f infra/local/docker-compose.yml --env-file .env down
+    docker compose -f infra/local/docker-compose.yml --env-file .env down
 ```
 
 Если также необходимо удалить том базы данных:
 ```bash
-docker compose -f infra/local/docker-compose.yml --env-file .env down -v && docker system prune -f
+    docker compose -f infra/local/docker-compose.yml --env-file .env down -v && docker system prune -f
 ```
 
 [⬆️Оглавление](#оглавление)
@@ -123,7 +128,7 @@ docker compose -f infra/local/docker-compose.yml --env-file .env down -v && dock
 ## Удаление приложения:
 Из корневой директории проекта выполните команду:
 ```bash
-cd .. && rm -fr Funtech_backend
+    cd .. && rm -fr Funtech_backend
 ```
 
 [⬆️Оглавление](#оглавление)
@@ -134,10 +139,3 @@ cd .. && rm -fr Funtech_backend
 [Aleksei Proskuriakov](https://github.com/alexpro2022)
 
 [⬆️В начало](#funtech_backend)
-
-
-```bash
-docker compose -f infra/tests/docker-compose.yml --env-file .env up --build --abort-on-container-exit && \
-docker compose -f infra/tests/docker-compose.yml --env-file .env down -v && \
-docker system prune -f
-```
