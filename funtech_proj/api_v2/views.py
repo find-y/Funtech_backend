@@ -58,6 +58,31 @@ class ParticipantEventViewSet(ModelViewSet):
     # permission_classes = (IsAuthenticatedOrReadOnly,)
 
 
+# class EventViewSet(ModelViewSet):
+#     queryset = em.Event.objects.all()
+#     serializer_class = s.EventSerializer
+
+# @action(
+#     detail=True,
+#     methods=['POST', 'DELETE'],
+#     # permission_classes=(IsAuthenticated,),
+# )
+# def favorite(self, request, pk):
+#     user = request.user
+#     data = {'user': user.id, 'event_id': pk}
+#     serializer = s.ParticipantEventSerializer(data=data,
+#                                               context={'request': request})
+#     if request.method == 'POST':
+#         serializer.is_valid(raise_exception=True)
+#         serializer.save()
+#         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+#     get_object_or_404(em.ParticipantEvent,
+#                       user=user,
+#                       recipe_id=get_object_or_404(em.Event, id=pk)).delete()
+#     return Response(status=status.HTTP_204_NO_CONTENT)
+
+
 """
 TownViewSet = vscm(sm.Town, s.TownSerializer)
 StackViewSet = vscm(sm.Stack, s.StackSerializer)
