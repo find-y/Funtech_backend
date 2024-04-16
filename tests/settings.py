@@ -29,9 +29,8 @@ DOMAIN = os.getenv("DOMAIN", default="localhost")
 ALLOWED_HOSTS = ["127.0.0.1", "backend", DOMAIN]
 CSRF_TRUSTED_ORIGINS = ["http://127.0.0.1", f"http://{DOMAIN}", f"https://{DOMAIN}"]
 
-CELERY_BROKER_URL = os.getenv("CELERY_BROKER_URL")
-
 # Application definition
+
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -89,24 +88,12 @@ WSGI_APPLICATION = "funtech_proj.wsgi.application"
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 
-if "DB_ENGINE" in os.environ:
-    DATABASES = {
-        "default": {
-            "ENGINE": os.getenv("DB_ENGINE"),
-            "NAME": os.getenv("DB_NAME"),
-            "USER": os.getenv("POSTGRES_USER"),
-            "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
-            "HOST": os.getenv("DB_HOST"),
-            "PORT": os.getenv("DB_PORT"),
-        }
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": str(BASE_DIR / "db.sqlite3"),
     }
-else:
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.sqlite3",
-            "NAME": str(BASE_DIR / "db.sqlite3"),
-        }
-    }
+}
 
 
 # Password validation
@@ -164,8 +151,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 REST_FRAMEWORK = {
-    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",  # type: ignore
-    "DEFAULT_AUTHENTICATION_CLASSES": (  # type: ignore
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+    "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework.authentication.TokenAuthentication",
     ),
 }

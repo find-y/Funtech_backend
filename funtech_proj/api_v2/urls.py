@@ -23,10 +23,10 @@ ROUTES = (
 """
 
 
-router = DefaultRouter()
+v2_router = DefaultRouter()
 for url_prefix, view_set in ROUTES:
-    router.register(url_prefix, view_set, basename=url_prefix)
+    v2_router.register(url_prefix, view_set, basename=url_prefix)
 
 urlpatterns = [
-    path("/", include(router.urls)),
+    path("/", include(v2_router.urls)),
 ]

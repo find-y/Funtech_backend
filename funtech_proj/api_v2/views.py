@@ -4,6 +4,7 @@ from class_makers.api import viewset_class_maker as vscm
 from django.shortcuts import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
 from events import models as em
+from events.tasks import background_task
 from rest_framework import filters, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -24,6 +25,7 @@ class GenericNameTemplateViewSet(ListViewSet):
     ordering = ("name",)
 
     def get_queryset(self):
+        background_task.delay()
         return self.serializer_class.Meta.model.objects.all()
 
 
@@ -90,18 +92,6 @@ class EventViewSet(ModelViewSet):
 
 
 """
-TownViewSet = vscm(sm.Town, s.TownSerializer)
-StackViewSet = vscm(sm.Stack, s.StackSerializer)
-FormViewSet = vscm(sm.Form, s.FormSerializer)
-ThemeViewSet = vscm(sm.Theme, s.ThemeSerializer)
-# SpecializationViewSet = vscm(sm.Specialization, s.SpecializationSerializer)
-
-GalleryImageViewSet = vscm(em.Gallery_image, s.Gallery_imageSerializer)
-SpeakerViewSet = vscm(em.Speaker, s.SpeakerSerializer)
-Program_partViewSet = vscm(em.Program_part, s.Program_partSerializer)
-
-UserViewSet = vscm(User, s.UserSerializer, ReadPatchViewSet)
-
 class MayBeInterestingViewSet(GenericEventsViewsSet):
 
     def get_queryset(self):
