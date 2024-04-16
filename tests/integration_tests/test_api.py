@@ -8,7 +8,6 @@ from rest_framework.test import APIClient
 from .utils import check, get_urls
 
 
-@pytest.mark.django_db
 @pytest.mark.parametrize(
     "url",
     (

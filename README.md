@@ -20,6 +20,7 @@ https://funtech-team8.duckdns.org/api/v1/<br>
 - [Технологии](#технологии)
 - [Описание работы](#описание-работы)
 - [Установка приложения](#установка-приложения)
+- [Запуск тестов](#запуск-тестов)
 - [Запуск приложения](#запуск-приложения)
 - [Удаление приложения](#удаление-приложения)
 - [Авторы](#авторы)
@@ -57,7 +58,32 @@ nano .env
 
 <br>
 
-## Запуск приложения:
+## Запуск тестов (Виртуальное окружение):
+
+1. Создайте и активируйте виртуальное окружение и установите необходимые зависимости::
+   * Если у вас Linux/macOS
+   ```bash
+    python -m venv venv && source venv/bin/activate
+    python -m pip install --upgrade pip && pip install -r requirements/test.requirements.txt
+   ```
+   * Если у вас Windows
+   ```bash
+    python -m venv venv && source venv/Scripts/activate
+    python -m pip install --upgrade pip && pip install -r requirements/test.requirements.txt
+   ```
+
+2. Из корневой директории проекта выполните команду:
+```bash
+python funtech_proj/manage.py makemigrations
+pytest -x --cov --cov-config=.coveragerc
+deactivate
+```
+
+[⬆️Оглавление](#оглавление)
+
+<br>
+
+## Запуск приложения (Docker):
 
 1. Из корневой директории проекта выполните команду:
 ```bash
@@ -114,9 +140,4 @@ cd .. && rm -fr Funtech_backend
 docker compose -f infra/tests/docker-compose.yml --env-file .env up --build --abort-on-container-exit && \
 docker compose -f infra/tests/docker-compose.yml --env-file .env down -v && \
 docker system prune -f
-```
-
-
-```bash
-pytest -x --cov --cov-config=.coveragerc
 ```

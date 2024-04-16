@@ -9,12 +9,10 @@ def anon_client() -> APIClient:
 
 
 @pytest.fixture(autouse=True)
-def load_data(db):
+def enable_db_access_for_all_tests(db):
+    pass
+
+
+@pytest.fixture(autouse=True)
+def load_data():
     load_db()
-
-
-"""
-@pytest.fixture(autouse=True)  #, scope='session')
-def del_db_env(monkeypatch) -> None:
-    monkeypatch.delenv("DB_ENGINE", raising=False)
-"""
