@@ -83,7 +83,8 @@ https://funtech-team8.duckdns.org/api/v2/ <br>
 
 <br>
 
-## Запуск тестов (Виртуальное окружение) Codecov=97%:
+## Запуск тестов:
+#### (Виртуальное окружение) Codecov=97%
 
 1. Создайте и активируйте виртуальное окружение и установите необходимые зависимости::
    * Если у вас Linux/macOS
@@ -107,7 +108,8 @@ https://funtech-team8.duckdns.org/api/v2/ <br>
 
 <br>
 
-## Запуск приложения (Docker):
+## Запуск приложения:
+#### (Docker)
 
 1. Из корневой директории проекта выполните команду:
 ```bash
@@ -163,6 +165,9 @@ https://funtech-team8.duckdns.org/api/v2/ <br>
 <br>
 
 ## Авторы (в алфавитном порядке):
-[Aleksei Proskuriakov](https://github.com/alexpro2022)
+
+[Аустер Яков](https://github.com/find-y)<br>
+[Варивода  Георгий](https://github.com/gerich02)<br>
+[Проскуряков Алексей](https://github.com/alexpro2022)
 
 [⬆️В начало](#funtech_backend)
