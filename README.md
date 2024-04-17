@@ -102,7 +102,7 @@ https://funtech-team8.duckdns.org/api/v2/ <br>
 2. Из корневой директории проекта выполните команду:
 ```bash
     python funtech_proj/manage.py makemigrations
-    pytest -x --cov --cov-config=.coveragerc
+    pytest --cov --cov-config=.coveragerc
 ```
 
 [⬆️Оглавление](#оглавление)
