@@ -1,3 +1,5 @@
+from datetime import date
+
 from api_v2 import serializers as s
 from api_v2.viewsets import ListViewSet
 from class_makers.api import viewset_class_maker as vscm
@@ -62,7 +64,7 @@ class ParticipantEventViewSet(ModelViewSet):
 
 
 class EventViewSet(ModelViewSet):
-    queryset = em.Event.objects.all()
+    querqueryset = em.Event.objects.filter(date__gte=date.today())
     serializer_class = s.EventSerializer
 
     @action(
