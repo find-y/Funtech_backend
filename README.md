@@ -3,13 +3,18 @@
 [![CI/CD](https://github.com/Team88888/Funtech_backend/actions/workflows/ci_cd.yml/badge.svg)](https://github.com/Team88888/Funtech_backend/actions/workflows/ci_cd.yml)
 
 Проект развернут на сервере:<br>
-https://funtech-team8.duckdns.org/api/v1/ <br>
-https://funtech-team8.duckdns.org/api/v2/ <br>
+https://funtech-team8.duckdns.org/api/v1 <br>
+https://funtech-team8.duckdns.org/api/v2 <br>
 
   Администрирование приложения может быть осуществлено:
-  - через админ панель по адресу https://funtech-team8.duckdns.org/admin<br>
+  - через админ панель по адресу https://funtech-team8.duckdns.org/admin <br>
       <a href="#t1">Учетные данные</a> для входа в админ-зону
   - через Swagger доступный по адресу https://funtech-team8.duckdns.org/docs
+
+  Мониторинг фоновых задач Celery осуществляется по адресу: http://funtech-team8.duckdns.org:5555 <br>
+  Для активации фоновых задач необходимо выполнить GET-запрос к эндпойнтам:
+  - специализаций (https://funtech-team8.duckdns.org/api/v2/specializations/?theme=3)
+  - стека (https://funtech-team8.duckdns.org/api/v2/stack/?specialization=4)
 
   Техническая документация:
   - Redoc доступен по адресу https://funtech-team8.duckdns.org/redoc
@@ -120,15 +125,14 @@ https://funtech-team8.duckdns.org/api/v2/ <br>
   http://localhost/api/v1 <br>
   http://localhost/api/v2 <br>
 
-  Мониторинг фоновых задач Celery осуществляется по адресу: http://localhost:5555/ .
-
-  Для активации фоновых задач необходимо выполнить GET-запрос к эндпойнтам:
-  - специализаций (http://localhost/api/v2/specializations/?theme=3)
-  - стека (http://localhost/api/v2/stack/?specialization=4)
-
   Администрирование приложения может быть осуществлено:
   - через админ панель по адресу http://localhost/admin
   - через Swagger доступный по адресу http://localhost/docs
+
+  Мониторинг фоновых задач Celery осуществляется по адресу: http://localhost:5555 <br>
+  Для активации фоновых задач необходимо выполнить GET-запрос к эндпойнтам:
+  - специализаций (http://localhost/api/v2/specializations/?theme=3)
+  - стека (http://localhost/api/v2/stack/?specialization=4)
 
   Техническая документация:
   - Redoc доступен по адресу http://localhost/redoc
