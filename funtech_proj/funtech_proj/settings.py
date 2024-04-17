@@ -178,6 +178,8 @@ SPECTACULAR_SETTINGS = {
         "filter": True,
     },
     "COMPONENT_SPLIT_REQUEST": True,
+    "SCHEMA_PATH_PREFIX": r"/api/",  # grouping by API versions
+    # 'SCHEMA_PATH_PREFIX': r'/api/v[0-9]',  # grouping by tags
 }
 
 AUTH_USER_MODEL = "users.User"
