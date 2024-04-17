@@ -33,6 +33,7 @@ https://funtech-team8.duckdns.org/api/v2/ <br>
 [![Python](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12-blue?logo=python)](https://www.python.org/)
 [![Django](https://img.shields.io/badge/Django-5.0-blue?logo=Django)](https://www.djangoproject.com/)
 [![DRF](https://img.shields.io/badge/-djangoRESTframework-464646?logo=djangorestframework)](https://www.django-rest-framework.org/)
+[![drf-spectacular](https://img.shields.io/badge/-drf--spectacular-464646?logo=drfspectacular)](https://drf-spectacular.readthedocs.io/en/latest/)
 [![celery](https://img.shields.io/badge/-Celery-464646?logo=celery)](https://docs.celeryq.dev/en/stable/)
 [![rabbitmq](https://img.shields.io/badge/-RabbitMQ-464646?logo=rabbitmq)](https://www.rabbitmq.com/)
 [![flower](https://img.shields.io/badge/-Flower-464646?logo=flower)](https://flower.readthedocs.io/en/latest/)
