@@ -1,18 +1,30 @@
 # Funtech_backend
 
 ## Описание
-Бот-конструктор для агентства разработки SCID с гибкой системой настройки.
-Предоставляет информацию о продуктах и услугах компании. Имеет админ панель в самом
-боте и отдельно во фронт-приложении. Реализована система обратной связи с участием менеджеров.
-Реализована система отзывов с оценками.
+Апи для платформы с ивентами.
 
-### Технологии:
-- Python
-- FastAPI
-- aiogram
-- SQLAlchemy
-- PostgreSQL
-- Docker
+## Оглавление
+- [Технологии](#технологии)
+- [Установка приложения](#установка-приложения)
+- [Запуск тестов](#запуск-тестов)
+- [Запуск приложения](#запуск-приложения)
+- [Удаление приложения](#удаление-приложения)
+- [Авторы](#авторы)
+
+## Технологии:
+[![Python](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12-blue?logo=python)](https://www.python.org/)
+[![Django](https://img.shields.io/badge/Django-5.0-blue?logo=Django)](https://www.djangoproject.com/)
+[![DRF](https://img.shields.io/badge/-djangoRESTframework-464646?logo=djangorestframework)](https://www.django-rest-framework.org/)
+[![drf-spectacular](https://img.shields.io/badge/-drf--spectacular-464646?logo=drfspectacular)](https://drf-spectacular.readthedocs.io/en/latest/)
+[![celery](https://img.shields.io/badge/-Celery-464646?logo=celery)](https://docs.celeryq.dev/en/stable/)
+[![rabbitmq](https://img.shields.io/badge/-RabbitMQ-464646?logo=rabbitmq)](https://www.rabbitmq.com/)
+[![flower](https://img.shields.io/badge/-Flower-464646?logo=flower)](https://flower.readthedocs.io/en/latest/)
+[![docker_compose](https://img.shields.io/badge/-Docker%20Compose-464646?logo=docker)](https://docs.docker.com/compose/)
+[![Pytest](https://img.shields.io/badge/-pytest-464646?logo=Pytest)](https://docs.pytest.org/en/latest/)
+[![Pytest-django](https://img.shields.io/badge/-pytest--django-464646?logo=Pytest)](https://pytest-django.readthedocs.io/en/latest/index.html)
+[![pytest-cov](https://img.shields.io/badge/-pytest--cov-464646?logo=codecov)](https://pytest-cov.readthedocs.io/en/latest/)
+[![factoryboy](https://img.shields.io/badge/-factoryboy-464646?logo=factoryboy)](https://factoryboy.readthedocs.io/en/stable/index.html)
+[![pre-commit](https://img.shields.io/badge/-pre--commit-464646?logo=pre-commit)](https://pre-commit.com/)
 
 ## Подготовка и запуск проекта
 [![CI/CD](https://github.com/Team88888/Funtech_backend/actions/workflows/ci_cd.yml/badge.svg)](https://github.com/Team88888/Funtech_backend/actions/workflows/ci_cd.yml)
@@ -37,39 +49,6 @@ https://funtech-team8.duckdns.org/api/v2 <br>
 
 <br>
 
-## Оглавление
-- [Технологии](#технологии)
-- [Установка приложения](#установка-приложения)
-- [Запуск тестов](#запуск-тестов)
-- [Запуск приложения](#запуск-приложения)
-- [Удаление приложения](#удаление-приложения)
-- [Авторы](#авторы)
-
-<br>
-
-## Технологии
-<details><summary>Подробнее</summary><br>
-
-[![Python](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12-blue?logo=python)](https://www.python.org/)
-[![Django](https://img.shields.io/badge/Django-5.0-blue?logo=Django)](https://www.djangoproject.com/)
-[![DRF](https://img.shields.io/badge/-djangoRESTframework-464646?logo=djangorestframework)](https://www.django-rest-framework.org/)
-[![drf-spectacular](https://img.shields.io/badge/-drf--spectacular-464646?logo=drfspectacular)](https://drf-spectacular.readthedocs.io/en/latest/)
-[![celery](https://img.shields.io/badge/-Celery-464646?logo=celery)](https://docs.celeryq.dev/en/stable/)
-[![rabbitmq](https://img.shields.io/badge/-RabbitMQ-464646?logo=rabbitmq)](https://www.rabbitmq.com/)
-[![flower](https://img.shields.io/badge/-Flower-464646?logo=flower)](https://flower.readthedocs.io/en/latest/)
-[![docker_compose](https://img.shields.io/badge/-Docker%20Compose-464646?logo=docker)](https://docs.docker.com/compose/)
-[![Pytest](https://img.shields.io/badge/-pytest-464646?logo=Pytest)](https://docs.pytest.org/en/latest/)
-[![Pytest-django](https://img.shields.io/badge/-pytest--django-464646?logo=Pytest)](https://pytest-django.readthedocs.io/en/latest/index.html)
-[![pytest-cov](https://img.shields.io/badge/-pytest--cov-464646?logo=codecov)](https://pytest-cov.readthedocs.io/en/latest/)
-[![factoryboy](https://img.shields.io/badge/-factoryboy-464646?logo=factoryboy)](https://factoryboy.readthedocs.io/en/stable/index.html)
-[![pre-commit](https://img.shields.io/badge/-pre--commit-464646?logo=pre-commit)](https://pre-commit.com/)
-
-[⬆️Оглавление](#оглавление)
-
-</details>
-
-<br>
-
 ## Установка приложения:
 
 <details><summary>Предварительные условия</summary>
@@ -89,7 +68,7 @@ https://funtech-team8.duckdns.org/api/v2 <br>
 ```bash
     git config --global core.autocrlf false
 ```
-<br><br>
+<br>
 
 Клонируйте репозиторий с GitHub и введите данные для переменных окружения (значения даны для примера, но их можно оставить):
 
@@ -100,9 +79,6 @@ https://funtech-team8.duckdns.org/api/v2 <br>
     nano .env
 ```
 
-[⬆️Оглавление](#оглавление)
-
-<br>
 
 ## Запуск тестов:
 #### (Виртуальное окружение) Codecov=97%
@@ -124,10 +100,6 @@ https://funtech-team8.duckdns.org/api/v2 <br>
     python funtech_proj/manage.py makemigrations
     pytest --cov --cov-config=.coveragerc
 ```
-
-[⬆️Оглавление](#оглавление)
-
-<br>
 
 ## Запуск приложения:
 #### (Docker)
@@ -170,9 +142,6 @@ https://funtech-team8.duckdns.org/api/v2 <br>
     docker compose -f infra/local/docker-compose.yml --env-file .env down -v && docker system prune -f
 ```
 
-[⬆️Оглавление](#оглавление)
-
-<br>
 
 ## Удаление приложения:
 Из корневой директории проекта выполните команду:
@@ -180,9 +149,6 @@ https://funtech-team8.duckdns.org/api/v2 <br>
     cd .. && rm -fr Funtech_backend && deactivate
 ```
 
-[⬆️Оглавление](#оглавление)
-
-<br>
 
 ## Авторы (в алфавитном порядке):
 
