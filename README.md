@@ -21,7 +21,7 @@ API для платформы ивентов Плюс Фантех
 - [Запуск тестов](#запуск-тестов)
 - [Запуск приложения](#запуск-приложения)
 - [Удаление приложения](#удаление-приложения)
-- [Авторы](#авторы)
+- [Авторы](#авторы-в-алфавитном-порядке)
 
 ## Подготовка и запуск проекта
 [![CI/CD](https://github.com/Team88888/Funtech_backend/actions/workflows/ci_cd.yml/badge.svg)](https://github.com/Team88888/Funtech_backend/actions/workflows/ci_cd.yml)
