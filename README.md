@@ -1,17 +1,4 @@
 # Funtech_backend
-
-## Описание
-Апи для платформы с ивентами.
-
-## Оглавление
-- [Технологии](#технологии)
-- [Установка приложения](#установка-приложения)
-- [Запуск тестов](#запуск-тестов)
-- [Запуск приложения](#запуск-приложения)
-- [Удаление приложения](#удаление-приложения)
-- [Авторы](#авторы)
-
-## Технологии:
 [![Python](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12-blue?logo=python)](https://www.python.org/)
 [![Django](https://img.shields.io/badge/Django-5.0-blue?logo=Django)](https://www.djangoproject.com/)
 [![DRF](https://img.shields.io/badge/-djangoRESTframework-464646?logo=djangorestframework)](https://www.django-rest-framework.org/)
@@ -25,6 +12,16 @@
 [![pytest-cov](https://img.shields.io/badge/-pytest--cov-464646?logo=codecov)](https://pytest-cov.readthedocs.io/en/latest/)
 [![factoryboy](https://img.shields.io/badge/-factoryboy-464646?logo=factoryboy)](https://factoryboy.readthedocs.io/en/stable/index.html)
 [![pre-commit](https://img.shields.io/badge/-pre--commit-464646?logo=pre-commit)](https://pre-commit.com/)
+
+## Описание
+API для платформы ивентов Плюс Фантех
+
+## Оглавление
+- [Установка приложения](#установка-приложения)
+- [Запуск тестов](#запуск-тестов)
+- [Запуск приложения](#запуск-приложения)
+- [Удаление приложения](#удаление-приложения)
+- [Авторы](#авторы)
 
 ## Подготовка и запуск проекта
 [![CI/CD](https://github.com/Team88888/Funtech_backend/actions/workflows/ci_cd.yml/badge.svg)](https://github.com/Team88888/Funtech_backend/actions/workflows/ci_cd.yml)
